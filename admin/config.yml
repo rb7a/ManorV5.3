@@ -1,0 +1,4814 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: teams
+    label: Teams
+    folder: cms/teams
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Bio
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_headshot
+        label: Headshot
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_title
+        label: Title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_ph
+        label: Ph.
+        widget: string
+        required: false
+      - hint: ''
+        name: f_email
+        label: Email
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: teams
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[teams].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: rental_listing
+    label: Rental Listings
+    folder: cms/rental-listing
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_bedrooms
+        label: Bedrooms
+        widget: number
+        required: false
+      - hint: ''
+        name: f_bathrooms
+        label: Bathrooms
+        widget: number
+        required: false
+      - hint: ''
+        name: f_carparks
+        label: Carparks
+        widget: number
+        required: false
+      - hint: ''
+        name: f_thumbnail
+        label: Thumbnail
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: rental-listing
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[rental-listing].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Property Management, key: -2188f092'
+            label: Text
+            name: '-2188f092'
+            widget: string
+          - hint: 'Original text: Property Sales, key: -49b5cff'
+            label: Text
+            name: '-49b5cff'
+            widget: string
+          - hint: 'Original text: About, key: 3c2336d'
+            label: Text
+            name: 3c2336d
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: Properties, key: 3f9f6953'
+            label: Text
+            name: 3f9f6953
+            widget: string
+          - hint: 'Original text: Properties For Sale, key: -25232a55'
+            label: Text
+            name: '-25232a55'
+            widget: string
+          - hint: 'Original text: Why Manor Realty, key: 28f3ab1e'
+            label: Text
+            name: 28f3ab1e
+            widget: string
+          - hint: 'Original text: Rentals, key: -5ba34051'
+            label: Text
+            name: '-5ba34051'
+            widget: string
+          - hint: 'Original text: Current Listings, key: 76da7976'
+            label: Text
+            name: 76da7976
+            widget: string
+          - hint: 'Original text: Services & Fees, key: -6c420497'
+            label: Text
+            name: '-6c420497'
+            widget: string
+          - hint: 'Original text: Tips For Tenants, key: 7e14ebaa'
+            label: Text
+            name: 7e14ebaa
+            widget: string
+          - hint: 'Original text: Make The Move, key: e82b832'
+            label: Text
+            name: e82b832
+            widget: string
+          - hint: 'Original text: about, key: 585238d'
+            label: Text
+            name: 585238d
+            widget: string
+          - hint: 'Original text: About Manor, key: 491d162a'
+            label: Text
+            name: 491d162a
+            widget: string
+          - hint: 'Original text: Our Team, key: 290af1'
+            label: Text
+            name: 290af1
+            widget: string
+          - hint: 'Original text: Meet The Team, key: 3dc485'
+            label: Text
+            name: 3dc485
+            widget: string
+          - hint: 'Original text: Testimonials, key: 1590c3d4'
+            label: Text
+            name: 1590c3d4
+            widget: string
+          - hint: 'Original text: Login, key: 462ff49'
+            label: Text
+            name: 462ff49
+            widget: string
+          - hint: 'Original text: Hamilton office, key: 5e949c00'
+            label: Text
+            name: 5e949c00
+            widget: string
+          - hint: 'Original text: Address: , key: -546d6a06'
+            label: Text
+            name: '-546d6a06'
+            widget: string
+          - hint: 'Original text: 223 Victoria Street, Hamilton CBD, key: -7161bb54'
+            label: Text
+            name: '-7161bb54'
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: Contact:, key: -1df83bc6'
+            label: Text
+            name: '-1df83bc6'
+            widget: string
+          - hint: 'Original text: 0, key: 30'
+            label: Text
+            name: '30'
+            widget: string
+          - hint: 'Original text: ‍‍, key: 401a0'
+            label: Text
+            name: 401a0
+            widget: string
+          - hint: 'Original text: info@manorrealty.co.nz, key: 73d353ae'
+            label: Text
+            name: 73d353ae
+            widget: string
+          - hint: 'Original text: Home, key: 2268ff'
+            label: Text
+            name: 2268ff
+            widget: string
+          - hint: 'Original text: Property Rentals, key: -7928277c'
+            label: Text
+            name: '-7928277c'
+            widget: string
+          - hint: 'Original text: Homes For Rent, key: 577253bc'
+            label: Text
+            name: 577253bc
+            widget: string
+          - hint: 'Original text: Teanants, key: -5f85f516'
+            label: Text
+            name: '-5f85f516'
+            widget: string
+          - hint: 'Original text: Make The Switch, key: -7ca260ab'
+            label: Text
+            name: '-7ca260ab'
+            widget: string
+          - hint: >-
+              Original text: © 2022 Manor Realty. All right reserved., key:
+              7e9f9c40
+            label: Text
+            name: 7e9f9c40
+            widget: string
+          - hint: 'Original text: Privacy Policy, key: -3fbde6f6'
+            label: Text
+            name: '-3fbde6f6'
+            widget: string
+          - hint: 'Original text: PROPERTY SALES, key: -127f411f'
+            label: Text
+            name: '-127f411f'
+            widget: string
+          - hint: 'Original text: Properties for sale, key: -28ef0295'
+            label: Text
+            name: '-28ef0295'
+            widget: string
+          - hint: >-
+              Original text: Explore our current listings, featuring a variety
+              of residences tailored to meet your lifestyle preferences., key:
+              -59f2f97b
+            label: Text
+            name: '-59f2f97b'
+            widget: text
+          - hint: 'Original text: why sell with manor, key: -189489e7'
+            label: Text
+            name: '-189489e7'
+            widget: string
+          - hint: >-
+              Original text: Experience a seamless and successful sales process
+              with a partner you can trust., key: 2663598a
+            label: Text
+            name: 2663598a
+            widget: string
+          - hint: 'Original text: Sell With Manor, key: 59102251'
+            label: Text
+            name: '59102251'
+            widget: string
+          - hint: >-
+              Original text: Request a professional property appraisal to gain
+              valuable insights into the current market value of your home.,
+              key: 1615c702
+            label: Text
+            name: 1615c702
+            widget: text
+          - hint: 'Original text: selling tips, key: -291859f8'
+            label: Text
+            name: '-291859f8'
+            widget: string
+          - hint: >-
+              Original text: Navigate the market confidently, from enhancing
+              curb appeal to strategic negotiations, ensuring a smooth and
+              rewarding selling experience., key: 9206cbc
+            label: Text
+            name: 9206cbc
+            widget: text
+          - hint: 'Original text: recently sold Properties , key: -66e43027'
+            label: Text
+            name: '-66e43027'
+            widget: string
+          - hint: >-
+              Original text: Review our portfolio of recently sold properties,
+              showcasing successful transactions and providing valuable insights
+              into the current real estate market trends., key: 3b2e3913
+            label: Text
+            name: 3b2e3913
+            widget: text
+          - hint: 'Original text: RENTALS, key: 6befb3af'
+            label: Text
+            name: 6befb3af
+            widget: string
+          - hint: 'Original text: renters, key: 4124378d'
+            label: Text
+            name: 4124378d
+            widget: string
+          - hint: 'Original text: Properties for rent, key: -28ef67a3'
+            label: Text
+            name: '-28ef67a3'
+            widget: string
+          - hint: >-
+              Original text: Explore our currently available rental properties,
+              featuring a variety of residences tailored to meet your lifestyle
+              preferences., key: 55daa3eb
+            label: Text
+            name: 55daa3eb
+            widget: text
+          - hint: 'Original text: Tips for tenants, key: -488d5416'
+            label: Text
+            name: '-488d5416'
+            widget: string
+          - hint: >-
+              Original text: Navigate the rental journey seamlessly with our
+              tenant tips, offering valuable advice on everything from lease
+              negotiations to property maintenance,, key: f46f15b
+            label: Text
+            name: f46f15b
+            widget: text
+          - hint: 'Original text: Maintenance requests, key: -5277b9af'
+            label: Text
+            name: '-5277b9af'
+            widget: string
+          - hint: >-
+              Original text: Submit your maintenance requests effortlessly
+              through our online portal, ensuring prompt attention to your
+              property needs., key: 44d77021
+            label: Text
+            name: 44d77021
+            widget: text
+          - hint: 'Original text: Contact your Property Manager, key: 23f7ec8f'
+            label: Text
+            name: 23f7ec8f
+            widget: string
+          - hint: >-
+              Original text: Easily connect with our dedicated property managers
+              for swift assistance, inquiries, or to address any concerns., key:
+              -6321485f
+            label: Text
+            name: '-6321485f'
+            widget: text
+          - hint: 'Original text: landlords, key: 54e90113'
+            label: Text
+            name: '54e90113'
+            widget: string
+          - hint: >-
+              Original text: Maximise your property's visibility and find the
+              ideal tenants efficiently., key: 3e46cb60
+            label: Text
+            name: 3e46cb60
+            widget: string
+          - hint: 'Original text: Recently Leased Properties , key: -106a22b1'
+            label: Text
+            name: '-106a22b1'
+            widget: string
+          - hint: >-
+              Original text: Review our recently leased properties., key:
+              7ca88201
+            label: Text
+            name: 7ca88201
+            widget: string
+          - hint: 'Original text: Make the move, key: ab6dff2'
+            label: Text
+            name: ab6dff2
+            widget: string
+          - hint: >-
+              Original text: Want Manor Realty to handle all the hard stuff?
+              Make the move today., key: 58d72e86
+            label: Text
+            name: 58d72e86
+            widget: string
+          - hint: 'Original text: log into Managers portal, key: 2c25c4e2'
+            label: Text
+            name: 2c25c4e2
+            widget: string
+          - hint: >-
+              Original text: Introduction to Wireframing and its Principles.
+              Learn from the best in the industry., key: -49ad46e3
+            label: Text
+            name: '-49ad46e3'
+            widget: string
+          - hint: 'Original text: ABOUT, key: 3b32b6d'
+            label: Text
+            name: 3b32b6d
+            widget: string
+          - hint: 'Original text: About manor realty, key: 6c511339'
+            label: Text
+            name: 6c511339
+            widget: string
+          - hint: 'Original text: About Us, key: 645efc51'
+            label: Text
+            name: 645efc51
+            widget: string
+          - hint: >-
+              Original text: With a legacy of excellence, we are committed to
+              providing unparalleled service, leveraging expertise, and
+              fostering lasting relationships in every property journey., key:
+              -7ad25dad
+            label: Text
+            name: '-7ad25dad'
+            widget: text
+          - hint: 'Original text: the team, key: 3de310ac'
+            label: Text
+            name: 3de310ac
+            widget: string
+          - hint: >-
+              Original text: Meet the dedicated professionals behind Manor
+              Realty. Our team combines expertise, passion, and a commitment to
+              excellence, ensuring personalized and effective solutions for all
+              your real estate needs., key: 3d57edfd
+            label: Text
+            name: 3d57edfd
+            widget: text
+          - hint: 'Original text: Client testimonials, key: -59b72a37'
+            label: Text
+            name: '-59b72a37'
+            widget: string
+          - hint: >-
+              Original text: Learn why Manor Realty is the trusted choice, as
+              shared by those who have benefited from our expertise, commitment,
+              and personalized approach to real estate., key: -3768c9de
+            label: Text
+            name: '-3768c9de'
+            widget: text
+          - hint: 'Original text: Career, key: 77e0f39e'
+            label: Text
+            name: 77e0f39e
+            widget: string
+          - hint: >-
+              Original text: Embark on a rewarding career in real estate with
+              Manor Realty., key: -5e98beba
+            label: Text
+            name: '-5e98beba'
+            widget: string
+          - hint: 'Original text: Contact us, key: 7f274abe'
+            label: Text
+            name: 7f274abe
+            widget: string
+          - hint: 'Original text: make the Switch, key: 47f90b55'
+            label: Text
+            name: 47f90b55
+            widget: string
+          - hint: >-
+              Original text: Please full out the form the below and one of our
+              team will be in contact as soon as possible, key: 11331343
+            label: Text
+            name: '11331343'
+            widget: text
+          - hint: 'Original text: , key: e813'
+            label: Text
+            name: e813
+            widget: string
+          - hint: 'Original text: Thank you, key: -592b9e37'
+            label: Text
+            name: '-592b9e37'
+            widget: string
+          - hint: >-
+              Original text: Thanks for reaching out. We will get back to you
+              soon., key: 616f2143
+            label: Text
+            name: 616f2143
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Sales, key: 4bf58ec'
+            label: Text
+            name: 4bf58ec
+            widget: string
+          - hint: 'Original text: Recently Sold, key: 4d6ed8cc'
+            label: Text
+            name: 4d6ed8cc
+            widget: string
+          - hint: 'Original text: What''s My House Worth, key: 3118060a'
+            label: Text
+            name: 3118060a
+            widget: string
+          - hint: 'Original text: rentals, key: 412427cf'
+            label: Text
+            name: 412427cf
+            widget: string
+          - hint: 'Original text: Properties For Rent, key: -25238f63'
+            label: Text
+            name: '-25238f63'
+            widget: string
+          - hint: 'Original text: Recently leased, key: -28cca8de'
+            label: Text
+            name: '-28cca8de'
+            widget: string
+          - hint: 'Original text: Tenants, key: e20c4e9'
+            label: Text
+            name: e20c4e9
+            widget: string
+          - hint: 'Original text: Make the Switch, key: c8bc335'
+            label: Text
+            name: c8bc335
+            widget: string
+          - hint: 'Original text: 07 390 2527, key: -43e71669'
+            label: Text
+            name: '-43e71669'
+            widget: string
+          - hint: 'Original text: 26a Liverpool St, Hamilton Central, key: 653d9f87'
+            label: Text
+            name: 653d9f87
+            widget: string
+          - hint: 'Original text: socials, key: -7985295a'
+            label: Text
+            name: '-7985295a'
+            widget: string
+          - hint: 'Original text: Facebook, key: 217bfee6'
+            label: Text
+            name: 217bfee6
+            widget: string
+          - hint: 'Original text: Instagram, key: 792b2792'
+            label: Text
+            name: 792b2792
+            widget: string
+          - hint: 'Original text: rental listings, key: 6b7181eb'
+            label: Text
+            name: 6b7181eb
+            widget: string
+          - hint: 'Original text: Current listings, key: 73001556'
+            label: Text
+            name: '73001556'
+            widget: string
+          - hint: 'Original text: HAMILTON, key: 2d57573c'
+            label: Text
+            name: 2d57573c
+            widget: string
+          - hint: 'Original text: 93 Breckons Avenue, Nawton, key: -4e580eec'
+            label: Text
+            name: '-4e580eec'
+            widget: string
+          - hint: 'Original text: BED, key: 10061'
+            label: Text
+            name: '10061'
+            widget: string
+          - hint: 'Original text: 3, key: 33'
+            label: Text
+            name: '33'
+            widget: string
+          - hint: 'Original text: BATH, key: 1efef3'
+            label: Text
+            name: 1efef3
+            widget: string
+          - hint: 'Original text: 2, key: 32'
+            label: Text
+            name: '32'
+            widget: string
+          - hint: 'Original text: CAR, key: 103b4'
+            label: Text
+            name: 103b4
+            widget: string
+          - hint: 'Original text: $620, key: 112e50'
+            label: Text
+            name: '112e50'
+            widget: string
+          - hint: 'Original text: PW, key: a07'
+            label: Text
+            name: a07
+            widget: string
+          - hint: 'Original text: Subscribe to our Newsletter, key: -53659f04'
+            label: Text
+            name: '-53659f04'
+            widget: string
+          - hint: >-
+              Original text: Sign up for our Newsletter and stay one step ahead
+              with market news and insights delivered right to your inbox., key:
+              -99c70e2
+            label: Text
+            name: '-99c70e2'
+            widget: text
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: 'Original text: Discover the Difference, key: 2914e163'
+            label: Text
+            name: '2914e163'
+            widget: string
+          - hint: >-
+              Original text: Want to know more? Send us a message using the link
+              below and one of our friendly staff members will be quick o get in
+              contact with you , key: 5fe778d1
+            label: Text
+            name: 5fe778d1
+            widget: text
+          - hint: 'Original text: talk to our team, key: 1b295d42'
+            label: Text
+            name: 1b295d42
+            widget: string
+          - hint: >-
+              Original text: Manor Realty strives to offer market leading
+              services to our valued clients at affordable and fair rates, key:
+              48e8ed84
+            label: Text
+            name: 48e8ed84
+            widget: text
+          - hint: 'Original text: our Fees, key: -3b7b5df'
+            label: Text
+            name: '-3b7b5df'
+            widget: string
+          - hint: 'Original text: Fairer Fees, key: -4099e64'
+            label: Text
+            name: '-4099e64'
+            widget: string
+          - hint: >-
+              Original text: At Manor Realty, we understand that your property
+              is an investment in your future. That’s why we only charge a flat
+              rate of 8.25% + GST on rent collected., key: 1b975c33
+            label: Text
+            name: 1b975c33
+            widget: text
+          - hint: 'Original text: Are there any other fees, key: 249f8719'
+            label: Text
+            name: 249f8719
+            widget: string
+          - hint: >-
+              Original text: When a tenant has signed up a tenancy at your
+              property. We will charge a week’s rent + gst once the move-in
+              costs have been paid. There are no hidden fees which means:, key:
+              39b26415
+            label: Text
+            name: 39b26415
+            widget: text
+          - hint: 'Original text: No charge on maintenance, key: 570b0c3f'
+            label: Text
+            name: 570b0c3f
+            widget: string
+          - hint: 'Original text: No inspection fees, key: 29aff49a'
+            label: Text
+            name: 29aff49a
+            widget: string
+          - hint: 'Original text: no statement fees, key: -609ee603'
+            label: Text
+            name: '-609ee603'
+            widget: string
+          - hint: 'Original text: no additional yearly fees, key: 21cd3449'
+            label: Text
+            name: 21cd3449
+            widget: string
+          - hint: 'Original text: tenant find, key: 6d26d76f'
+            label: Text
+            name: 6d26d76f
+            widget: string
+          - hint: 'Original text: we can do the hard bit, key: 17212bfa'
+            label: Text
+            name: 17212bfa
+            widget: string
+          - hint: >-
+              Original text: You may also like to take advantage of our , key:
+              2f076fc8
+            label: Text
+            name: 2f076fc8
+            widget: string
+          - hint: 'Original text: Tenant Find, key: -2f7e0c91'
+            label: Text
+            name: '-2f7e0c91'
+            widget: string
+          - hint: >-
+              Original text:  service. You get all the early benefits of a fully
+              managed property but once the tenants are signed up, it’s over to
+              you. , key: -157041af
+            label: Text
+            name: '-157041af'
+            widget: text
+          - hint: >-
+              Original text: Our fee for this service is two weeks rent,
+              including GST. To find out more about this, get in touch with the
+              team today., key: -1f7753d4
+            label: Text
+            name: '-1f7753d4'
+            widget: text
+          - hint: 'Original text: Our team, key: 3796d1'
+            label: Text
+            name: 3796d1
+            widget: string
+          - hint: 'Original text: Meet our team, key: -4513f1b6'
+            label: Text
+            name: '-4513f1b6'
+            widget: string
+          - hint: 'Original text: Join our team, key: -29d26b39'
+            label: Text
+            name: '-29d26b39'
+            widget: string
+          - hint: 'Original text: Management, key: b885463'
+            label: Text
+            name: b885463
+            widget: string
+          - hint: 'Original text: Managing Director & Head of sales, key: -3c0111ed'
+            label: Text
+            name: '-3c0111ed'
+            widget: string
+          - hint: 'Original text: Harman Kalotia, key: 2502a794'
+            label: Text
+            name: 2502a794
+            widget: string
+          - hint: 'Original text: +64 22 502 4954, key: 3cfd65d6'
+            label: Text
+            name: 3cfd65d6
+            widget: string
+          - hint: 'Original text: harman@manorrealty.co.nz, key: 4b877861'
+            label: Text
+            name: 4b877861
+            widget: string
+          - hint: 'Original text: co founder / Managing, key: -31642ce8'
+            label: Text
+            name: '-31642ce8'
+            widget: string
+          - hint: 'Original text: director, key: eaa538c'
+            label: Text
+            name: eaa538c
+            widget: string
+          - hint: 'Original text: Kamal Dhillon, key: d851726'
+            label: Text
+            name: d851726
+            widget: string
+          - hint: 'Original text: +64 27 271 6297, key: 3b60a9f2'
+            label: Text
+            name: 3b60a9f2
+            widget: string
+          - hint: 'Original text: kamal@manorrealty.co.nz, key: 469f4242'
+            label: Text
+            name: 469f4242
+            widget: string
+          - hint: 'Original text: head property, key: 13048c15'
+            label: Text
+            name: 13048c15
+            widget: string
+          - hint: 'Original text: manager, key: 31c90fad'
+            label: Text
+            name: 31c90fad
+            widget: string
+          - hint: 'Original text: Adam Brady, key: e2cbe95'
+            label: Text
+            name: e2cbe95
+            widget: string
+          - hint: 'Original text: +64 22 385 7715, key: 198cc51d'
+            label: Text
+            name: 198cc51d
+            widget: string
+          - hint: 'Original text: adam@manorrealty.co.nz, key: -5fd20bb1'
+            label: Text
+            name: '-5fd20bb1'
+            widget: string
+          - hint: 'Original text: SALES, key: 4b050ec'
+            label: Text
+            name: 4b050ec
+            widget: string
+          - hint: 'Original text: Residential sales expert, key: 4c69fb7a'
+            label: Text
+            name: 4c69fb7a
+            widget: string
+          - hint: 'Original text: Liston Togia, key: 47894081'
+            label: Text
+            name: '47894081'
+            widget: string
+          - hint: 'Original text: +64 20 4170 0930, key: 2f318125'
+            label: Text
+            name: 2f318125
+            widget: string
+          - hint: 'Original text: Liston@manorrealty.co.nz, key: -698933a3'
+            label: Text
+            name: '-698933a3'
+            widget: string
+          - hint: 'Original text: Ayalister Dsouza, key: -787167b8'
+            label: Text
+            name: '-787167b8'
+            widget: string
+          - hint: 'Original text: +64 21 025 10999, key: 56bb34a3'
+            label: Text
+            name: 56bb34a3
+            widget: string
+          - hint: 'Original text: ayalister@manorrealty.co.nz, key: -1143604c'
+            label: Text
+            name: '-1143604c'
+            widget: string
+          - hint: 'Original text: Property management , key: -72fec96e'
+            label: Text
+            name: '-72fec96e'
+            widget: string
+          - hint: 'Original text: property manager, key: 467fe462'
+            label: Text
+            name: 467fe462
+            widget: string
+          - hint: 'Original text: Brooke Menzies, key: -7790cba3'
+            label: Text
+            name: '-7790cba3'
+            widget: string
+          - hint: 'Original text: +64 27 700 9640, key: -3138819a'
+            label: Text
+            name: '-3138819a'
+            widget: string
+          - hint: 'Original text: brooke@manorrealty.co.nz, key: -58410876'
+            label: Text
+            name: '-58410876'
+            widget: string
+          - hint: 'Original text: Melita Bargh, key: 456640d6'
+            label: Text
+            name: 456640d6
+            widget: string
+          - hint: 'Original text: +64 21 609 080, key: -22d4043'
+            label: Text
+            name: '-22d4043'
+            widget: string
+          - hint: 'Original text: melita@manorrealty.co.nz, key: -39d49bbe'
+            label: Text
+            name: '-39d49bbe'
+            widget: string
+          - hint: 'Original text: There for you, key: 3cb9fe6c'
+            label: Text
+            name: 3cb9fe6c
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat.Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Suspendisse varius enim in eros
+              elementum tristique. Duis cursus, mi quis viverra ornare, eros
+              dolor interdum nulla, ut commodo diam libero vitae erat., key:
+              433db6f4
+            label: Text
+            name: 433db6f4
+            widget: text
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat., key: -3910d286
+            label: Text
+            name: '-3910d286'
+            widget: text
+          - hint: 'Original text: Button, key: 77471352'
+            label: Text
+            name: '77471352'
+            widget: string
+          - hint: >-
+              Original text: Check out the list below for some information on
+              our tenant processes, key: 7819154b
+            label: Text
+            name: 7819154b
+            widget: string
+          - hint: 'Original text: 01, key: 601'
+            label: Text
+            name: '601'
+            widget: string
+          - hint: 'Original text: Applying, key: 4a2f99d4'
+            label: Text
+            name: 4a2f99d4
+            widget: string
+          - hint: >-
+              Original text: Once you find the right home, you are required to
+              complete a tenancy application form before we can speak to the
+              landlord. You will need to supply proof of identification and you
+              may also be required to provide verification of your current
+              address, key: 74234f1
+            label: Text
+            name: 74234f1
+            widget: text
+          - hint: 'Original text: 02, key: 602'
+            label: Text
+            name: '602'
+            widget: string
+          - hint: 'Original text: Paying your Bond, key: -108f3b96'
+            label: Text
+            name: '-108f3b96'
+            widget: string
+          - hint: >-
+              Original text: We will require 4 week’s bond to be paid prior to
+              your move in date. Your bond is held as security against any
+              possible damages/arrears owing at the end of the tenancy. This
+              will be held with MBIE for the duration of your tenancy. Once we
+              are satisfied that the conditions have been met, the bond will be
+              refunded to your nominated bank account., key: -6ba17d21
+            label: Text
+            name: '-6ba17d21'
+            widget: text
+          - hint: 'Original text: 03, key: 603'
+            label: Text
+            name: '603'
+            widget: string
+          - hint: 'Original text: Paying your rent, key: -10798f40'
+            label: Text
+            name: '-10798f40'
+            widget: string
+          - hint: >-
+              Original text: It is your legal responsibility to ensure that rent
+              is paid in a timely manner. We require all payments to be in
+              advance from the start of the tenancy and reach us on or before
+              the due date. Should you encounter any problems with your
+              payments, it is crucial that you contact your property manager at
+              the earliest opportunity. If you fall in to arrears, Manor Realty
+              will accordingly take reasonable steps to follow procedures as
+              outlined in the Residential Tenancies Act 1986., key: -50917496
+            label: Text
+            name: '-50917496'
+            widget: text
+          - hint: 'Original text: 04, key: 604'
+            label: Text
+            name: '604'
+            widget: string
+          - hint: 'Original text: Inspections, key: 860495f'
+            label: Text
+            name: 860495f
+            widget: string
+          - hint: >-
+              Original text: When you move in to the property, you will be
+              emailed a report outlining the condition of the home upon
+              occupancy. This will give you an opportunity to ensure the report
+              is all true and correct and make any amendments within 7 days of
+              your start date. This will ensure that you are not held
+              responsible for any damages which may have been pre-existing.,
+              key: -701a147b
+            label: Text
+            name: '-701a147b'
+            widget: text
+          - hint: >-
+              Original text: Routine inspections are conducted every 3 to 4
+              months for the landlord's records. This will outline the current
+              condition of the home as well as addressing any maintenance issues
+              or recommended remedial works for the landlords benefit. We
+              encourage tenants to ensure that any issues, be it big or small,
+              are noted so we can address them., key: -4041d88a
+            label: Text
+            name: '-4041d88a'
+            widget: text
+          - hint: 'Original text: 05, key: 605'
+            label: Text
+            name: '605'
+            widget: string
+          - hint: 'Original text: Repairs & Maintenance, key: -286b4e41'
+            label: Text
+            name: '-286b4e41'
+            widget: string
+          - hint: >-
+              Original text: Through the duration of your tenancy, we
+              respectfully request that you notify us of any maintenance issues
+              as they arise. Please contact your property manager via email so
+              we can keep a written communication trail. From here, we will
+              liaise with the landlord and contractors to remedy any issues as
+              quickly as possible. If you have any emergencies after hours and
+              cannot reach your property manager, you are permitted to contact
+              emergency contractors directly. However, it’s important that you
+              know that should the issue not be deemed an emergency, you may be
+              responsible for payment of any preceding invoices., key: 6d3e3dae
+            label: Text
+            name: 6d3e3dae
+            widget: text
+          - hint: 'Original text: 06, key: 606'
+            label: Text
+            name: '606'
+            widget: string
+          - hint: 'Original text: vacating the property, key: -62940493'
+            label: Text
+            name: '-62940493'
+            widget: string
+          - hint: >-
+              Original text: You are required as per the legislation to give 28
+              days notice in writing to your property manager. Once the vacate
+              notice is received, we will contact you and advise of the
+              requirements for handing the property over with vacant possession.
+              Upon receipt of the keys, we will book the final inspection., key:
+              -29a17ef1
+            label: Text
+            name: '-29a17ef1'
+            widget: text
+          - hint: 'Original text: About us, key: 645f0031'
+            label: Text
+            name: 645f0031
+            widget: string
+          - hint: 'Original text: our partners, key: -5529d01'
+            label: Text
+            name: '-5529d01'
+            widget: string
+          - hint: 'Original text: Brander, key: 6b6e2a54'
+            label: Text
+            name: 6b6e2a54
+            widget: string
+          - hint: >-
+              Original text: At the heart of Manor Realty's philosophy is a
+              determination to provide exceptional customer service and build
+              trust with clients. The company takes an innovative, "outside the
+              box" approach to real estate, delivering tailored solutions that
+              are designed to achieve the best possible results for their
+              clients. Whether you are buying, selling, or investing in
+              property, Manor Realty's expert team will provide the guidance and
+              support you need to make informed decisions., key: 5342473c
+            label: Text
+            name: 5342473c
+            widget: text
+          - hint: >-
+              Original text: In today's rapidly changing world, it's more
+              important than ever to work with a real estate agency that is on
+              the cutting edge of technology and marketing. With Manor Realty,
+              you can be confident that you are working with a team of
+              professionals who are dedicated to helping you achieve your real
+              estate goals and navigate the market with ease. Whether you are
+              looking for your dream home, seeking to expand your property
+              portfolio, or anything in between, Manor Realty is here to help.,
+              key: -7581b6e4
+            label: Text
+            name: '-7581b6e4'
+            widget: text
+          - hint: 'Original text: Meet the team behind our firm, key: -1710b23'
+            label: Text
+            name: '-1710b23'
+            widget: string
+          - hint: >-
+              Original text: Manor Realty is a visionary real estate company
+              that is leading the charge in modernizing the industry. As a
+              boutique firm, Manor Realty brings a fresh perspective and a
+              commitment to excellence to the real estate market. With a
+              state-of-the-art technology platform and an in-house film
+              production and marketing team, Manor Realty is poised to
+              revolutionize the traditional real estate model and propel it
+              towards a sustainable future., key: 8b69b9b
+            label: Text
+            name: 8b69b9b
+            widget: text
+          - hint: 'Original text: About Manor Realty, key: 3f815379'
+            label: Text
+            name: 3f815379
+            widget: string
+          - hint: >-
+              Original text: We are passionate about helping people , key:
+              54ee6d78
+            label: Text
+            name: 54ee6d78
+            widget: string
+          - hint: "Original text: Hendrerit augue libero ut sollicitudin velit iaculis mi \_imperdiet volutpat at aliquet mauris ullamcorper amet \_commodo commodo arcu gravida ut urna \_a nec est quis morbi nec mauris vel iaculis nulla laoreet sagittis feugiat., key: -5aee8272"
+            label: Text
+            name: '-5aee8272'
+            widget: text
+          - hint: "Original text: Adipiscing felis ut turpis quis sed ut habitant semper eget sed at ipsum eget enim amet \_nunc libero id neque iaculis consequat porttitor eu \_eu porttitor sed feugiat velit purus sit ullamcorper elementum nisl condimentum., key: 2d1fd193"
+            label: Text
+            name: 2d1fd193
+            widget: text
+          - hint: >-
+              Original text: Ultrices id platea gravida aliquet pretium egestas
+              auctor mauris porta fames id tellus pretium pretium posuere amet
+              mauris praesent ornare sit scelerisque porta magna ultrices
+              convallis ut massa lobortis augue porttitor fames velit dictum.,
+              key: 1d37a2e6
+            label: Text
+            name: 1d37a2e6
+            widget: text
+          - hint: 'Original text: visit our office, key: -76ed37fb'
+            label: Text
+            name: '-76ed37fb'
+            widget: string
+          - hint: >-
+              Original text: Located in the heart of the city. Reach out below
+              and organise a time to come chat with the team., key: 59d1dc85
+            label: Text
+            name: 59d1dc85
+            widget: text
+          - hint: >-
+              Original text: 26 liverpool street, hamilton central, key:
+              -19d9f51e
+            label: Text
+            name: '-19d9f51e'
+            widget: string
+          - hint: >-
+              Original text: I was a youthful starter in property management
+              completing two years of early understanding and development of the
+              industry in the UK before making the switch to New Zealand. 8
+              Years later and I now find myself being the head of property
+              management in an exciting new company., key: -3f40a89c
+            label: Text
+            name: '-3f40a89c'
+            widget: text
+          - hint: >-
+              Original text: For 6 years, I operated as a Property Manager and
+              quickly built a good reputation for my excellent service level in
+              Hamilton & the surrounding townships. Building good relationships
+              on the foundations of trust have helped me to grow portfolios and
+              get the best for my clients. I transitioned into a Business
+              Development Manager role proving my ability to successfully
+              network and bring in new business thanks to the classic “word of
+              mouth” referral., key: -63668151
+            label: Text
+            name: '-63668151'
+            widget: text
+          - hint: >-
+              Original text: I find that property management is the ultimate
+              juggling act and time management is key. One thing you can count
+              on with me, is the drive to get things done. I regularly take part
+              in industry training, attend property management conferences and
+              you may see me at the occasional investor evenings. Now in my
+              thirties, I still find myself with years ahead of energy,
+              determination and adaptability skills to ensure that all your
+              needs are met efficiently. , key: -7286accf
+            label: Text
+            name: '-7286accf'
+            widget: text
+          - hint: >-
+              Original text: Over the years, I have developed a strong passion
+              for property management and while you’ll find me taking care of
+              the day to day business, I personally enjoy knowing that I'm
+              helping you reap the rewards of investing., key: -57aa4792
+            label: Text
+            name: '-57aa4792'
+            widget: text
+          - hint: >-
+              Original text: Aside from property management, you’ll most likely
+              find me on the football field playing for the Cambridge FC Men’s
+              Championship side. I brought my love of the beautiful game with me
+              to New Zealand but quickly found I may have to settle for
+              enjoyment of rugby. If it’s not the football fields, it’s the
+              beach or hiking some of the country’s great trails. As energetic
+              in my personal life as I am in my working life., key: 2218c674
+            label: Text
+            name: 2218c674
+            widget: text
+          - hint: 'Original text: listings, key: 503e966f'
+            label: Text
+            name: 503e966f
+            widget: string
+          - hint: 'Original text: Adam''s Listings, key: -5e27c0c'
+            label: Text
+            name: '-5e27c0c'
+            widget: string
+          - hint: 'Original text: View all listings, key: -7d7db477'
+            label: Text
+            name: '-7d7db477'
+            widget: string
+          - hint: 'Original text: Leased, key: -78929696'
+            label: Text
+            name: '-78929696'
+            widget: string
+          - hint: 'Original text: Adam''s Recently Leased, key: 6aee4e3d'
+            label: Text
+            name: 6aee4e3d
+            widget: string
+          - hint: 'Original text: View all Leased, key: 316f9d04'
+            label: Text
+            name: 316f9d04
+            widget: string
+          - hint: 'Original text: What our clients are saying, key: -17723575'
+            label: Text
+            name: '-17723575'
+            widget: string
+          - hint: >-
+              Original text: Highly recommend Adam and the property management
+              team at Manor. Prompt communication, always available and moves
+              fast to take action., key: -6cc61d7e
+            label: Text
+            name: '-6cc61d7e'
+            widget: text
+          - hint: 'Original text: Tom Martin, key: -2da19ab7'
+            label: Text
+            name: '-2da19ab7'
+            widget: string
+          - hint: >-
+              Original text: Adam is great with communicating each step and what
+              the next steps is. If you have a rental, I would honestly
+              recommend Adam to manager it., key: 48f76e98
+            label: Text
+            name: 48f76e98
+            widget: text
+          - hint: 'Original text: Bradley , key: 1cdd913'
+            label: Text
+            name: 1cdd913
+            widget: string
+          - hint: >-
+              Original text: I would highly recommend Adam from Manor realty. We
+              needed Tennants in December which is a tricky time of year and
+              Adam went above and beyond to get great Tennants in a short
+              period., key: -66e9e87a
+            label: Text
+            name: '-66e9e87a'
+            widget: text
+          - hint: 'Original text: Matt Hurley, key: -480d3679'
+            label: Text
+            name: '-480d3679'
+            widget: string
+          - hint: 'Original text: property management , key: -7ec3fd8e'
+            label: Text
+            name: '-7ec3fd8e'
+            widget: string
+          - hint: 'Original text: Property Management , key: -f95218e'
+            label: Text
+            name: '-f95218e'
+            widget: string
+          - hint: >-
+              Original text: Maximise Value, Minimise Stress: Your Trusted
+              Partner in Property Management, key: -15b9323c
+            label: Text
+            name: '-15b9323c'
+            widget: string
+          - hint: 'Original text: Make the switch, key: 4326d715'
+            label: Text
+            name: 4326d715
+            widget: string
+          - hint: 'Original text: TESTIMONIALS, key: -6a1ba84c'
+            label: Text
+            name: '-6a1ba84c'
+            widget: string
+          - hint: 'Original text: 30+, key: c56e'
+            label: Text
+            name: c56e
+            widget: string
+          - hint: 'Original text: Years of experience, key: -42858b97'
+            label: Text
+            name: '-42858b97'
+            widget: string
+          - hint: 'Original text: 200+, key: 1774b9'
+            label: Text
+            name: 1774b9
+            widget: string
+          - hint: 'Original text: Homes rented, key: 4a9f07e4'
+            label: Text
+            name: 4a9f07e4
+            widget: string
+          - hint: 'Original text: 8, key: 38'
+            label: Text
+            name: '38'
+            widget: string
+          - hint: 'Original text: Team members, key: 2a304e76'
+            label: Text
+            name: 2a304e76
+            widget: string
+          - hint: 'Original text: 120+, key: 1707dc'
+            label: Text
+            name: 1707dc
+            widget: string
+          - hint: 'Original text: Homes sold, key: -21c05de0'
+            label: Text
+            name: '-21c05de0'
+            widget: string
+          - hint: 'Original text: Services, key: 560f747e'
+            label: Text
+            name: 560f747e
+            widget: string
+          - hint: 'Original text: Let us do the work, key: -2f186468'
+            label: Text
+            name: '-2f186468'
+            widget: string
+          - hint: 'Original text: Premium Advertising, key: 2e48f69b'
+            label: Text
+            name: 2e48f69b
+            widget: string
+          - hint: >-
+              Original text: Stand out above the rest and be confident that our
+              access to high level marketing will ensure your property is widely
+              seen., key: -1c21351
+            label: Text
+            name: '-1c21351'
+            widget: text
+          - hint: 'Original text: Background , key: -3a24076e'
+            label: Text
+            name: '-3a24076e'
+            widget: string
+          - hint: 'Original text: Checks, key: 783da88b'
+            label: Text
+            name: 783da88b
+            widget: string
+          - hint: >-
+              Original text: All prospective tenants are subject to background
+              as well as credit checks to ensure your property is in safe
+              hands., key: -3806d844
+            label: Text
+            name: '-3806d844'
+            widget: text
+          - hint: 'Original text: Reference , key: -36a179ab'
+            label: Text
+            name: '-36a179ab'
+            widget: string
+          - hint: >-
+              Original text: All prospective tenants are subject to complete and
+              detailed reference checks., key: -697efe8d
+            label: Text
+            name: '-697efe8d'
+            widget: string
+          - hint: 'Original text: Quick, key: 4ac35cd'
+            label: Text
+            name: 4ac35cd
+            widget: string
+          - hint: 'Original text: Agreements, key: -7e2d3437'
+            label: Text
+            name: '-7e2d3437'
+            widget: string
+          - hint: >-
+              Original text: We strive to ensure all new tenancy agreements are
+              signed quickly and the process is expedited to reduce wait times ,
+              key: 3584c553
+            label: Text
+            name: 3584c553
+            widget: text
+          - hint: 'Original text: Timely , key: 14e7da26'
+            label: Text
+            name: 14e7da26
+            widget: string
+          - hint: 'Original text: Payments, key: 5644734d'
+            label: Text
+            name: 5644734d
+            widget: string
+          - hint: >-
+              Original text: We ensure that all property owners are consistently
+              paid on the 1st & 15th of every month helping you to keep on top
+              of your outgoings., key: -128017e1
+            label: Text
+            name: '-128017e1'
+            widget: text
+          - hint: 'Original text: Clear, key: 3e2c62d'
+            label: Text
+            name: 3e2c62d
+            widget: string
+          - hint: 'Original text: Statements, key: 69ffe104'
+            label: Text
+            name: 69ffe104
+            widget: string
+          - hint: >-
+              Original text: You’ll receive a monthly statement clearly
+              outlining all rental income, fee breakdown as well as any
+              maintenance expenses incurred that month, key: -6829d7af
+            label: Text
+            name: '-6829d7af'
+            widget: text
+          - hint: 'Original text: Quarterly, key: 37e7d519'
+            label: Text
+            name: 37e7d519
+            widget: string
+          - hint: "Original text: These can be crucial to your insurance needs. We inspect your property every 3 months to ensure your property is well kept and to address any\_maintenance., key: -7d0aec2d"
+            label: Text
+            name: '-7d0aec2d'
+            widget: text
+          - hint: 'Original text: Rent, key: 26cf59'
+            label: Text
+            name: 26cf59
+            widget: string
+          - hint: 'Original text: Reviews, key: -5b377405'
+            label: Text
+            name: '-5b377405'
+            widget: string
+          - hint: >-
+              Original text: We use a top of the range software to ensure that
+              your property’s rent is reviewed annually and kept in line with
+              market rent., key: -439b1318
+            label: Text
+            name: '-439b1318'
+            widget: text
+          - hint: >-
+              Original text: We have legal advisers at hand and can quickly
+              minimise disputes raised and move forward in a timely,
+              co-operative manner. With almost a decade of experience, you can
+              sleep easy knowing that you’ve made the right choice., key:
+              421fd22b
+            label: Text
+            name: 421fd22b
+            widget: text
+          - hint: >-
+              Original text: At Manor Realty, we pride ourselves on looking
+              after the best quality homes which attract the highest calibre of
+              tenants. Not only will we look after the day to day management of
+              your investment property, we will find ways of maximising your
+              returns and preserving your home to a high standard., key:
+              607a83a0
+            label: Text
+            name: 607a83a0
+            widget: text
+          - hint: 'Original text: Service & fees, key: -38e09aae'
+            label: Text
+            name: '-38e09aae'
+            widget: string
+          - hint: 'Original text: A boutique approach to real estate, key: 1e63d4a4'
+            label: Text
+            name: 1e63d4a4
+            widget: string
+          - hint: >-
+              Original text: First and foremost, you want to know that you are
+              making the right choice in selecting an agent to manage your
+              property. Rest assured, by choosing Manor Realty, you’ll have
+              confidence knowing that we are up to date with the latest
+              legislation and take part in regular industry training. , key:
+              161e5598
+            label: Text
+            name: '161e5598'
+            widget: text
+          - hint: 'Original text: MORE ABOUT US, key: -41ff5f64'
+            label: Text
+            name: '-41ff5f64'
+            widget: string
+          - hint: "Original text: Hendrerit augue libero ut sollicitudin velit iaculis mi imperdiet volutpat at aliquet mauris ullamcorper amet commodo commodo arcu gravida ut urna \_a nec est quis morbi nec mauris vel iaculis nulla laoreet sagittis feugiat., key: 6046185e"
+            label: Text
+            name: 6046185e
+            widget: text
+          - hint: 'Original text: < Back To Listings, key: -18ddfc1'
+            label: Text
+            name: '-18ddfc1'
+            widget: string
+          - hint: 'Original text: 1/202-204 Old Farm Road, key: -36a11230'
+            label: Text
+            name: '-36a11230'
+            widget: string
+          - hint: 'Original text: Region, key: -6e52ecec'
+            label: Text
+            name: '-6e52ecec'
+            widget: string
+          - hint: 'Original text: city, key: 2e996b'
+            label: Text
+            name: 2e996b
+            widget: string
+          - hint: 'Original text: BED:, key: 1f0bf9'
+            label: Text
+            name: 1f0bf9
+            widget: string
+          - hint: 'Original text: BATH:, key: 3c0dfa7'
+            label: Text
+            name: 3c0dfa7
+            widget: string
+          - hint: 'Original text: CAR:, key: 1f7306'
+            label: Text
+            name: 1f7306
+            widget: string
+          - hint: 'Original text: Owners are motivated, act fast, key: 68ce1403'
+            label: Text
+            name: 68ce1403
+            widget: string
+          - hint: >-
+              Original text: Manor Realty is proud to introduce, 202 – 204 Old
+              Farm Road, Hamilton East., key: 4894ee61
+            label: Text
+            name: 4894ee61
+            widget: string
+          - hint: >-
+              Original text: Welcome to this beautifully presented double level
+              townhouse located in the desirable suburb of Hamilton East. This
+              property boasts a convenient location, just a short distance from
+              Waikato University and the new Ruakura Inland Port, making it an
+              excellent investment or a first home. , key: 2838d3
+            label: Text
+            name: 2838d3
+            widget: text
+          - hint: >-
+              Original text: This development features 5 townhouses available
+              for sale, each with 2 bedrooms, 1 main bathroom, and a separate
+              toilet, providing comfortable accommodation for small families,
+              Tenants or professionals. The modern kitchen overlooks an open
+              plan living area, creating a spacious and light-filled space for
+              daily life and entertaining., key: -310607d5
+            label: Text
+            name: '-310607d5'
+            widget: text
+          - hint: >-
+              Original text: In addition to the single garage, the development
+              also has 2 communal areas for residents to enjoy. These shared
+              spaces add to the sense of community within the development and
+              provide additional areas for relaxation and recreation., key:
+              1a950104
+            label: Text
+            name: 1a950104
+            widget: text
+          - hint: >-
+              Original text: The townhouses are well-maintained and ready for
+              you to move in and make them your own. Alternatively, they offer a
+              fantastic opportunity to secure a rental investment in a
+              sought-after location. Our Owners are motivated to sell, these
+              units won't be on the market for long. Contact us today to arrange
+              a viewing., key: -4d49d6d2
+            label: Text
+            name: '-4d49d6d2'
+            widget: text
+          - hint: >-
+              Original text: Please Note: Some Images of the property have been
+              digitally staged., key: -5076648c
+            label: Text
+            name: '-5076648c'
+            widget: string
+          - hint: 'Original text: Asking Price:, key: 1e8b9948'
+            label: Text
+            name: 1e8b9948
+            widget: string
+          - hint: 'Original text: $599,000, key: -c2f3a8b'
+            label: Text
+            name: '-c2f3a8b'
+            widget: string
+          - hint: 'Original text: Book a viewing, key: 5f02607'
+            label: Text
+            name: 5f02607
+            widget: string
+          - hint: 'Original text: Contact form, key: 5278c0e4'
+            label: Text
+            name: 5278c0e4
+            widget: string
+          - hint: 'Original text: Submit, key: -6bbed3c8'
+            label: Text
+            name: '-6bbed3c8'
+            widget: string
+          - hint: 'Original text: other lisitngs, key: -7e2618f7'
+            label: Text
+            name: '-7e2618f7'
+            widget: string
+          - hint: 'Original text: Popular Listings, key: -6a68afea'
+            label: Text
+            name: '-6a68afea'
+            widget: string
+          - hint: 'Original text: View All, key: 4b0951a6'
+            label: Text
+            name: 4b0951a6
+            widget: string
+          - hint: 'Original text: 3/202-204 Old Farm Road, key: 5dc22052'
+            label: Text
+            name: 5dc22052
+            widget: string
+          - hint: 'Original text: 1, key: 31'
+            label: Text
+            name: '31'
+            widget: string
+          - hint: 'Original text: Property Details, key: -5d735d09'
+            label: Text
+            name: '-5d735d09'
+            widget: string
+          - hint: >-
+              Original text: Owners are motivated, Bring your Offers, key:
+              -7df60423
+            label: Text
+            name: '-7df60423'
+            widget: string
+          - hint: 'Original text: Property Type:, key: -4824dcb'
+            label: Text
+            name: '-4824dcb'
+            widget: string
+          - hint: 'Original text: Townhouse, key: 9bf47ae'
+            label: Text
+            name: 9bf47ae
+            widget: string
+          - hint: 'Original text: Broadband Options:, key: -2a99e81b'
+            label: Text
+            name: '-2a99e81b'
+            widget: string
+          - hint: 'Original text: Fibre, ADSL, VDSL, Wireless, key: -6c0a9591'
+            label: Text
+            name: '-6c0a9591'
+            widget: string
+          - hint: 'Original text: Co-founder & managing Director, key: 793cfbfe'
+            label: Text
+            name: 793cfbfe
+            widget: string
+          - hint: 'Original text: Location, key: 752a03d5'
+            label: Text
+            name: 752a03d5
+            widget: string
+          - hint: 'Original text: Hamilton East, key: -1d03499f'
+            label: Text
+            name: '-1d03499f'
+            widget: string
+          - hint: >-
+              Original text: Located in the desirable suburb of Hamilton East.
+              This property boasts a convenient location, just a short distance
+              from Waikato University and the new Ruakura Inland Port, making it
+              an excellent investment or a first home. , key: -60b954c7
+            label: Text
+            name: '-60b954c7'
+            widget: text
+          - hint: 'Original text: 15 School Zones, key: -7a25ce9'
+            label: Text
+            name: '-7a25ce9'
+            widget: string
+          - hint: 'Original text: Waikato University, key: -716574c2'
+            label: Text
+            name: '-716574c2'
+            widget: string
+          - hint: 'Original text: Ruakura Inland Port, key: 48eb77e8'
+            label: Text
+            name: 48eb77e8
+            widget: string
+          - hint: 'Original text: 4/202-204 Old Farm Road, key: -580c466d'
+            label: Text
+            name: '-580c466d'
+            widget: string
+          - hint: 'Original text: 5/202-204 Old Farm Road, key: -ddaad2c'
+            label: Text
+            name: '-ddaad2c'
+            widget: string
+          - hint: 'Original text: 8/202-204 Old Farm Road, key: -2f45e169'
+            label: Text
+            name: '-2f45e169'
+            widget: string
+          - hint: 'Original text: $699,000, key: 28b700b6'
+            label: Text
+            name: 28b700b6
+            widget: string
+          - hint: 'Original text: 139 Mahana Lane, Te Awamutu, key: 5d648e9c'
+            label: Text
+            name: 5d648e9c
+            widget: string
+          - hint: 'Original text: Move in to Mahana, key: 74040ff9'
+            label: Text
+            name: 74040ff9
+            widget: string
+          - hint: 'Original text: house, key: 5edc720'
+            label: Text
+            name: 5edc720
+            widget: string
+          - hint: >-
+              Original text: Nestled in a tranquil cul-de-sac within the highly
+              sought-after town of Te Awamutu, this recently listed rental
+              property features two bedrooms and ample living space spread over
+              two floors. Boasting generous proportions that surpass those of
+              comparable two-bedroom homes, the upper level features a spacious
+              open-plan living, dining, and kitchen area complete with a heat
+              pump and access to a large sheltered deck. In addition, the upper
+              level includes the two double bedrooms and a well-appointed main
+              bathroom. , key: 3d2d9bc4
+            label: Text
+            name: 3d2d9bc4
+            widget: text
+          - hint: >-
+              Original text: The lower level is comprised of a roomy rumpus
+              room, ideal for setting up a home gym or hobbies, along with a
+              single lockable garage and car port. The property's
+              well-established grounds are ripe for further homely touches.,
+              key: 31ea6869
+            label: Text
+            name: 31ea6869
+            widget: text
+          - hint: 'Original text: $520 Per Week, key: -5925f838'
+            label: Text
+            name: '-5925f838'
+            widget: string
+          - hint: 'Original text: Head property manager, key: 25a282'
+            label: Text
+            name: 25a282
+            widget: string
+          - hint: 'Original text: Privacy Policy , key: 48010856'
+            label: Text
+            name: '48010856'
+            widget: string
+          - hint: 'Original text: INTRODUCTION, key: -1a1cbfe6'
+            label: Text
+            name: '-1a1cbfe6'
+            widget: string
+          - hint: >-
+              Original text: Manor Realty (we, us, our) complies with the New
+              Zealand Privacy Act 1993 (the Act) when dealing with personal
+              information. Personal information is information about an
+              identifiable individual (a natural person)., key: 97e6c00
+            label: Text
+            name: 97e6c00
+            widget: text
+          - hint: >-
+              Original text: This policy sets out how we will collect, use,
+              disclose and protect your personal information., key: 41442827
+            label: Text
+            name: '41442827'
+            widget: text
+          - hint: >-
+              Original text: This policy does not limit or exclude any of your
+              rights under the Act. If you wish to seek further information on
+              the Act, see www.privacy.org.nz., key: -e33f902
+            label: Text
+            name: '-e33f902'
+            widget: text
+          - hint: 'Original text: CHANGES TO THIS POLICY, key: 366661ec'
+            label: Text
+            name: 366661ec
+            widget: string
+          - hint: >-
+              Original text: We may change this policy by uploading a revised
+              policy onto the website. The change will apply from the date that
+              we upload the revised policy. This policy was last updated on the
+              11 March 2023., key: 6defe43d
+            label: Text
+            name: 6defe43d
+            widget: text
+          - hint: >-
+              Original text: WHO DO WE COLLECT YOUR PERSONAL INFORMATION FROM,
+              key: 1bd015c6
+            label: Text
+            name: 1bd015c6
+            widget: string
+          - hint: >-
+              Original text: We collect personal information about you from:,
+              key: 8950a10
+            label: Text
+            name: 8950a10
+            widget: string
+          - hint: >-
+              Original text: you, when you provide that personal information to
+              us, including via the website and any related service, through any
+              registration or subscription process, through any contact with us
+              (e.g. telephone call or email), or when you buy or use our
+              services and products, key: -40a732ae
+            label: Text
+            name: '-40a732ae'
+            widget: text
+          - hint: >-
+              Original text: third parties where you have authorised this or the
+              information is publicly available., key: 52caf05a
+            label: Text
+            name: 52caf05a
+            widget: string
+          - hint: >-
+              Original text: If possible, we will collect personal information
+              from you directly., key: 7f538ebb
+            label: Text
+            name: 7f538ebb
+            widget: string
+          - hint: 'Original text: HOW WE USE YOUR PERSONAL INFORMATION, key: 6f691b9e'
+            label: Text
+            name: 6f691b9e
+            widget: string
+          - hint: >-
+              Original text: We will use your personal information:, key:
+              -4ceac5aa
+            label: Text
+            name: '-4ceac5aa'
+            widget: string
+          - hint: 'Original text: to verify your identity, key: 93a2b29'
+            label: Text
+            name: 93a2b29
+            widget: string
+          - hint: >-
+              Original text: to provide services and products to you, key:
+              -2a50cc31
+            label: Text
+            name: '-2a50cc31'
+            widget: string
+          - hint: >-
+              Original text: to market our services and products to you,
+              including contacting you electronically (e.g. by text or email for
+              this purpose), key: 1cee7281
+            label: Text
+            name: 1cee7281
+            widget: text
+          - hint: >-
+              Original text: to improve the services and products that we
+              provide to you, key: -33ccc921
+            label: Text
+            name: '-33ccc921'
+            widget: string
+          - hint: >-
+              Original text: to undertake credit checks of you (if necessary),
+              key: -2f93b5d5
+            label: Text
+            name: '-2f93b5d5'
+            widget: string
+          - hint: >-
+              Original text: to bill you and to collect money that you owe us,
+              including authorising and processing credit card transactions,
+              key: -1bcd09de
+            label: Text
+            name: '-1bcd09de'
+            widget: text
+          - hint: >-
+              Original text: to respond to communications from you, including a
+              complaint, key: 23d1c506
+            label: Text
+            name: 23d1c506
+            widget: string
+          - hint: >-
+              Original text: to conduct research and statistical analysis (on an
+              anonymised basis), key: -5bb51b86
+            label: Text
+            name: '-5bb51b86'
+            widget: string
+          - hint: >-
+              Original text: to protect and/or enforce our legal rights and
+              interests, including defending any claim, key: -47a2733a
+            label: Text
+            name: '-47a2733a'
+            widget: string
+          - hint: >-
+              Original text: for any other purpose authorised by you or the
+              Act., key: -4baf7433
+            label: Text
+            name: '-4baf7433'
+            widget: string
+          - hint: 'Original text: DISCLOSING YOUR PERSONAL INFORMATION, key: 5d90ea80'
+            label: Text
+            name: 5d90ea80
+            widget: string
+          - hint: >-
+              Original text: We may disclose your personal information to:, key:
+              2b652daf
+            label: Text
+            name: 2b652daf
+            widget: string
+          - hint: >-
+              Original text: another company within our group any business that
+              supports our services and products, including any person that
+              hosts or maintains any underlying IT system or data centre that we
+              use to provide the website or other services and products, key:
+              -72cbe892
+            label: Text
+            name: '-72cbe892'
+            widget: text
+          - hint: >-
+              Original text: a credit reference agency for the purpose of credit
+              checking you, key: -197d3bc3
+            label: Text
+            name: '-197d3bc3'
+            widget: string
+          - hint: >-
+              Original text: other third parties (for anonymised statistical
+              information), key: 6fd5075f
+            label: Text
+            name: 6fd5075f
+            widget: string
+          - hint: >-
+              Original text: a person who can require us to supply your personal
+              information (e.g. a regulatory authority), key: -539c8e95
+            label: Text
+            name: '-539c8e95'
+            widget: text
+          - hint: >-
+              Original text: any other person authorised by the Act or another
+              law (e.g. a law enforcement agency), key: 66a42ce8
+            label: Text
+            name: 66a42ce8
+            widget: string
+          - hint: 'Original text: any other person authorised by you, key: -5d7c9925'
+            label: Text
+            name: '-5d7c9925'
+            widget: string
+          - hint: >-
+              Original text: A business that supports our services and products
+              may be located outside New Zealand., key: 57c758ef
+            label: Text
+            name: 57c758ef
+            widget: string
+          - hint: >-
+              Original text: This may mean your personal information is held and
+              processed outside New Zealand., key: -36735d03
+            label: Text
+            name: '-36735d03'
+            widget: string
+          - hint: 'Original text: PROTECTING YOUR PERSONAL INFORMATION, key: 216c41cc'
+            label: Text
+            name: 216c41cc
+            widget: string
+          - hint: >-
+              Original text: We will take reasonable steps to keep your personal
+              information safe from loss, unauthorised activity, or other
+              misuse., key: -7489b64e
+            label: Text
+            name: '-7489b64e'
+            widget: text
+          - hint: >-
+              Original text: ACCESSING AND CORRECTING YOUR PERSONAL INFORMATION,
+              key: -37747324
+            label: Text
+            name: '-37747324'
+            widget: string
+          - hint: >-
+              Original text: Subject to certain grounds for refusal set out in
+              the Act, you have the right to access your readily retrievable
+              personal information that we hold and to request a correction to
+              your personal information. Before you exercise this right, we will
+              need evidence to confirm that you are the individual to whom the
+              personal information relates., key: -5b00db18
+            label: Text
+            name: '-5b00db18'
+            widget: text
+          - hint: >-
+              Original text: In respect of a request for correction, if we think
+              the correction is reasonable and we are reasonably able to change
+              the personal information, we will make the correction. If we do
+              not make the correction, we will take reasonable steps to note on
+              the personal information that you requested the correction., key:
+              64254fc3
+            label: Text
+            name: 64254fc3
+            widget: text
+          - hint: >-
+              Original text: If you want to exercise either of the above rights,
+              email us at info@manorrealty.co.nz. Your email should provide
+              evidence of who you are and set out the details of your request
+              (e.g. the personal information, or the correction, that you are
+              requesting)., key: ffc6745
+            label: Text
+            name: ffc6745
+            widget: text
+          - hint: >-
+              Original text: We may charge you our reasonable costs of providing
+              to you copies of your personal information or correcting that
+              information., key: -4879bab6
+            label: Text
+            name: '-4879bab6'
+            widget: text
+          - hint: 'Original text: INTERNET USE, key: -7369fbf8'
+            label: Text
+            name: '-7369fbf8'
+            widget: string
+          - hint: >-
+              Original text: While we take reasonable steps to maintain secure
+              internet connections, if you provide us with personal information
+              over the internet, the provision of that information is at your
+              own risk., key: bb6eb46
+            label: Text
+            name: bb6eb46
+            widget: text
+          - hint: >-
+              Original text: If you post your personal information on the
+              website’s [message board/ chat room], you acknowledge and agree
+              that the information you post is publicly available., key:
+              6d079747
+            label: Text
+            name: 6d079747
+            widget: text
+          - hint: >-
+              Original text: If you follow a link on our website to another
+              site, the owner of that site will have its own privacy policy
+              relating to your personal information. We suggest you review that
+              site’s privacy policy before you provide personal information.,
+              key: 9dc11b4
+            label: Text
+            name: 9dc11b4
+            widget: text
+          - hint: >-
+              Original text: We use cookies (an alphanumeric identifier that we
+              transfer to your computer’s hard drive so that we can recognise
+              your browser) to monitor your use of the website. You may disable
+              cookies by changing the settings on your browser, although this
+              may mean that you cannot use all of the features of the website.,
+              key: -2288da7f
+            label: Text
+            name: '-2288da7f'
+            widget: text
+          - hint: >-
+              Original text: With a diverse background in retail and healthcare
+              administration, I bring a unique blend of skills and experiences
+              to the realm of property management. Over the course of three
+              years in property management, I've honed my abilities and
+              developed a work ethic centred around effective communication,
+              impeccable time management, and unwavering flexibility—a trio that
+              ensures harmonious relationships with both tenants and landlords.,
+              key: -2f646e9a
+            label: Text
+            name: '-2f646e9a'
+            widget: text
+          - hint: >-
+              Original text: My proactive and detail-oriented approach to work
+              reflects my commitment to excellence, coupled with a constant
+              drive for process improvement. I believe in staying open-minded
+              and creative, always ready to devise innovative solutions to
+              challenges that may arise., key: 509fcf93
+            label: Text
+            name: 509fcf93
+            widget: text
+          - hint: >-
+              Original text: Consistency and a positive mindset are my keys to
+              success. These principles guide my work, fostering an environment
+              of reliability and optimism that translates into value for
+              clients. Beyond the professional sphere, I bring a passion for
+              hockey, a love for music, and an appreciation for the
+              outdoors—elements that contribute to a well-rounded and vibrant
+              perspective., key: -41f179f3
+            label: Text
+            name: '-41f179f3'
+            widget: text
+          - hint: >-
+              Original text: Choose Melita as your property manager, where
+              dedication, innovation, and a positive spirit converge to elevate
+              your property management experience., key: -5788e5b9
+            label: Text
+            name: '-5788e5b9'
+            widget: text
+          - hint: 'Original text: Melita''s Listings, key: 14575761'
+            label: Text
+            name: '14575761'
+            widget: string
+          - hint: 'Original text: MELITA''s Recently Leased, key: -721ef9f0'
+            label: Text
+            name: '-721ef9f0'
+            widget: string
+          - hint: >-
+              Original text: Melita is an exceptional property manager. She is
+              always friendly, positive and helpful. She never makes you feel
+              like you are a bother, and she goes the extra mile to assist you
+              in any matter. It is so nice to have someone who you know you can
+              call and will always receive your call without making you feel
+              like she's too busy or not interested. Melita gets things done
+              promptly and efficiently for the property owner, with full respect
+              and care for the tenants as well. I really appreciate her way of
+              working, and highly recommend her to anyone looking for a great
+              property manager. Thank you, Melita! :-), key: cab33ab
+            label: Text
+            name: cab33ab
+            widget: text
+          - hint: 'Original text: Fiona Apple, key: 1ab5ca79'
+            label: Text
+            name: 1ab5ca79
+            widget: string
+          - hint: >-
+              Original text: Bringing a rich background in retail, including
+              shift management and administrative support for healthcare
+              workers, I seamlessly transitioned into property management,
+              amassing 4.5 years of invaluable experience in the field., key:
+              -353769b3
+            label: Text
+            name: '-353769b3'
+            widget: text
+          - hint: >-
+              Original text: Communication and honesty form the bedrock of my
+              relationships with landlords and tenants. I approach my work with
+              dedication, hard work, and passion, ensuring that my clients
+              experience a level of commitment that goes beyond the ordinary.,
+              key: -1c1148cf
+            label: Text
+            name: '-1c1148cf'
+            widget: text
+          - hint: >-
+              Original text: My work ethic is characterised by the delivery of a
+              high-quality standard of service, fostering open relationships
+              with both tenants and property owners. Building on principles of
+              integrity, enthusiasm, and trust, I strive to create a positive
+              and collaborative atmosphere that resonates with clients., key:
+              -20ee42ad
+            label: Text
+            name: '-20ee42ad'
+            widget: text
+          - hint: >-
+              Original text: Outside of the professional realm, I find joy in
+              hiking, quality time with my dog, and the occasional indulgence in
+              cheeky cocktails., key: -501453cb
+            label: Text
+            name: '-501453cb'
+            widget: text
+          - hint: >-
+              Original text: Choose Brooke for a property management experience
+              defined by professionalism, dedication, and a touch of personal
+              flair., key: -44b106b
+            label: Text
+            name: '-44b106b'
+            widget: text
+          - hint: 'Original text: Brooke''s Listings, key: 26636519'
+            label: Text
+            name: '26636519'
+            widget: string
+          - hint: 'Original text: BROOKE''s Recently Leased, key: 6f749958'
+            label: Text
+            name: 6f749958
+            widget: string
+          - hint: >-
+              Original text: Brooke is fantastic. She is approachable, friendly
+              and professional – always responds quickly to emails and phone
+              calls. Nothing seem's a problem. And if there is one, then she
+              just gets on with finding a resolution!, key: 60880079
+            label: Text
+            name: '60880079'
+            widget: text
+          - hint: 'Original text: Leigh Martelli, key: 10df9cc9'
+            label: Text
+            name: 10df9cc9
+            widget: string
+          - hint: >-
+              Original text: Brooke has been managing my property. She has been
+              very helpful and we are very happy about her managing our
+              property. She takes every step to make sure our property is in
+              good condition., key: 44e4e56e
+            label: Text
+            name: 44e4e56e
+            widget: text
+          - hint: 'Original text: Kim W, key: 4523b26'
+            label: Text
+            name: 4523b26
+            widget: string
+          - hint: 'Original text: What''s your home worth, key: 7de7f30a'
+            label: Text
+            name: 7de7f30a
+            widget: string
+          - hint: >-
+              Original text: Selling your residence? We conduct thorough
+              inspections to offer a precise assessment of its value. Our team
+              will furnish a comprehensive proposal, detailing the ways in which
+              we can assist you in maximizing the potential of your property.,
+              key: 561e0ae3
+            label: Text
+            name: 561e0ae3
+            widget: text
+          - hint: 'Original text: Prefered method of sale, key: -1c6741de'
+            label: Text
+            name: '-1c6741de'
+            widget: string
+          - hint: 'Original text: Auction, key: 3bc57623'
+            label: Text
+            name: 3bc57623
+            widget: string
+          - hint: 'Original text: Private Negotiation, key: 73869084'
+            label: Text
+            name: '73869084'
+            widget: string
+          - hint: 'Original text: Set date of Sale, key: -8fed644'
+            label: Text
+            name: '-8fed644'
+            widget: string
+          - hint: 'Original text: Asking Price, key: -17c9f2ce'
+            label: Text
+            name: '-17c9f2ce'
+            widget: string
+          - hint: 'Original text: Off Market, key: -a113b3'
+            label: Text
+            name: '-a113b3'
+            widget: string
+          - hint: 'Original text: Need Advice, key: -1cf7c43e'
+            label: Text
+            name: '-1cf7c43e'
+            widget: string
+          - hint: 'Original text: When do you want to go to market, key: 64874e'
+            label: Text
+            name: 64874e
+            widget: string
+          - hint: 'Original text: Select one..., key: 57f3b1cc'
+            label: Text
+            name: 57f3b1cc
+            widget: string
+          - hint: 'Original text: 0-3 Months, key: -49dad463'
+            label: Text
+            name: '-49dad463'
+            widget: string
+          - hint: 'Original text: 3-6 Months, key: -355afa69'
+            label: Text
+            name: '-355afa69'
+            widget: string
+          - hint: 'Original text: 6 Months Plus, key: 59836bd'
+            label: Text
+            name: 59836bd
+            widget: string
+          - hint: >-
+              Original text: Have you made improvements to your house, key:
+              6bce9287
+            label: Text
+            name: 6bce9287
+            widget: string
+          - hint: 'Original text: Yes, key: 15ac7'
+            label: Text
+            name: 15ac7
+            widget: string
+          - hint: 'Original text: No, key: 9e1'
+            label: Text
+            name: '9e1'
+            widget: string
+          - hint: 'Original text: How did you hear about us, key: -23c32d8f'
+            label: Text
+            name: '-23c32d8f'
+            widget: string
+          - hint: 'Original text: Social Media, key: 3eb4f971'
+            label: Text
+            name: 3eb4f971
+            widget: string
+          - hint: 'Original text: friends & family, key: 1a7ffac9'
+            label: Text
+            name: 1a7ffac9
+            widget: string
+          - hint: 'Original text: NEIGHBOURs , key: -5dad4936'
+            label: Text
+            name: '-5dad4936'
+            widget: string
+          - hint: 'Original text: website, key: 48f9e09b'
+            label: Text
+            name: 48f9e09b
+            widget: string
+          - hint: 'Original text: Signage, key: -204f01fe'
+            label: Text
+            name: '-204f01fe'
+            widget: string
+          - hint: 'Original text: other, key: 6527f10'
+            label: Text
+            name: 6527f10
+            widget: string
+          - hint: 'Original text: UPDATED, key: 1cd26c9b'
+            label: Text
+            name: 1cd26c9b
+            widget: string
+          - hint: 'Original text: DECEmber 2023, key: -3a1bbfe6'
+            label: Text
+            name: '-3a1bbfe6'
+            widget: string
+          - hint: 'Original text: Expert Tips for Home Sellers, key: 31506efc'
+            label: Text
+            name: 31506efc
+            widget: string
+          - hint: >-
+              Original text: Navigate the home selling journey with confidence
+              with proven tips for maximizing your property's appeal and value.,
+              key: -530aab6
+            label: Text
+            name: '-530aab6'
+            widget: text
+          - hint: "Original text: TIP\_NUMBER\_ONE, key: -63aea64c"
+            label: Text
+            name: '-63aea64c'
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
+              tristique posuere., key: -5286fc08
+            label: Text
+            name: '-5286fc08'
+            widget: text
+          - hint: "Original text: TIP\_NUMBER\_two, key: -63ae1646"
+            label: Text
+            name: '-63ae1646'
+            widget: string
+          - hint: "Original text: TIP\_NUMBER\_three, key: -30885674"
+            label: Text
+            name: '-30885674'
+            widget: string
+          - hint: 'Original text: Recently sold, key: 4d7d64ac'
+            label: Text
+            name: 4d7d64ac
+            widget: string
+          - hint: 'Original text: sold listings, key: -6f254fc5'
+            label: Text
+            name: '-6f254fc5'
+            widget: string
+          - hint: 'Original text: Maintenance request, key: -3c77799e'
+            label: Text
+            name: '-3c77799e'
+            widget: string
+          - hint: >-
+              Original text: Please submit your maintenance requests below. One
+              of our team members will review the request as soon as possible.,
+              key: 3596c996
+            label: Text
+            name: 3596c996
+            widget: text
+          - hint: 'Original text: Recently Leased, key: -5f67bcbe'
+            label: Text
+            name: '-5f67bcbe'
+            widget: string
+          - hint: 'Original text: Leased Properties, key: 6b0b31c9'
+            label: Text
+            name: 6b0b31c9
+            widget: string
+          - hint: >-
+              Original text: Harman is co-founder and head of sales for Manor
+              Realty, the first boutique real estate company launched and
+              designed for the marketplace of tomorrow. With an in-house film
+              production and marketing team, combined with an innovative tech
+              platform, Manor Realty is revolutionising the traditional Real
+              estate model and driving it toward a modern and sustainable
+              future., key: 40469716
+            label: Text
+            name: '40469716'
+            widget: text
+          - hint: >-
+              Original text: Bringing youth and enthusiasm to the Real Estate
+              industry. Harman’s invaluable knowledge about the Waikato property
+              market and 11 years of experience in the industry will give you
+              confidence that he is dedicated to getting exceptional results for
+              his clients., key: -349cff5
+            label: Text
+            name: '-349cff5'
+            widget: text
+          - hint: "Original text: Harman firmly believes that successful results are built on the foundation of putting your clients needs first and this has served Harman well to build strong relationships over the years.\_, key: -67142d64"
+            label: Text
+            name: '-67142d64'
+            widget: text
+          - hint: "Original text: An “outside the box” approach and determination to provide exemplary customer service are the pillars of his philosophy.\_Manor Realty’s solutions encompass this philosophy by achieving their clients top results., key: 6b744c5d"
+            label: Text
+            name: 6b744c5d
+            widget: text
+          - hint: 'Original text: Managing Director, key: -15d9bef6'
+            label: Text
+            name: '-15d9bef6'
+            widget: string
+          - hint: 'Original text: testimonials, key: bc56fb4'
+            label: Text
+            name: bc56fb4
+            widget: string
+          - hint: 'Original text: Harman''s Listings, key: 4da61822'
+            label: Text
+            name: 4da61822
+            widget: string
+          - hint: 'Original text: sold, key: 35f4d4'
+            label: Text
+            name: 35f4d4
+            widget: string
+          - hint: 'Original text: Harman''s recently sold, key: -742c64e7'
+            label: Text
+            name: '-742c64e7'
+            widget: string
+          - hint: 'Original text: View all sold, key: -7b7bb912'
+            label: Text
+            name: '-7b7bb912'
+            widget: string
+          - hint: 'Original text: Kind words from our clients, key: -500b6bbf'
+            label: Text
+            name: '-500b6bbf'
+            widget: string
+          - hint: "Original text: I received outstanding service when I listed my house with Harman in June 2023. \_Harman was extremely knowledgeable in all aspects of marketing and selling, and he gave me great advice, as well as sold my house quickly. \_Harman is professional and has integrity, and I confidently recommend him to anyone wishing to buy or sell real estate., key: 3416e87b"
+            label: Text
+            name: 3416e87b
+            widget: text
+          - hint: 'Original text: W H, key: 14abf'
+            label: Text
+            name: 14abf
+            widget: string
+          - hint: "Original text: Working with Harman from Manor Realty to sell my property has been nothing but a positive experience. \_Harman kept me in the loop the whole process, everything he promised me, he delivered. \_Thank you Harman, you made a difficult, emotional and life changing period in my life so much easier., key: -42f6cdcb"
+            label: Text
+            name: '-42f6cdcb'
+            widget: text
+          - hint: 'Original text: Anthea Clark, key: 1d051b2e'
+            label: Text
+            name: 1d051b2e
+            widget: string
+          - hint: >-
+              Original text: We had a great experience from start to finish.
+              Harman was nothing short of fantastic, and was instrumental in
+              assisting us with the purchase of our new home. We certainly
+              appreciated Harman’s work ethic, enthusiasm and communication
+              skills, both when working with us and when working with vendors,
+              lawyers and the mortgage broker on our behalf. , key: 568079ea
+            label: Text
+            name: 568079ea
+            widget: text
+          - hint: 'Original text: Rory Christopherson, key: 34a11197'
+            label: Text
+            name: 34a11197
+            widget: string
+          - hint: 'Original text: 26 liverpool St, Hamilton central, key: 4fec8300'
+            label: Text
+            name: 4fec8300
+            widget: string
+          - hint: 'Original text: property Sales, key: 371dd6e1'
+            label: Text
+            name: 371dd6e1
+            widget: string
+          - hint: 'Original text: Contact Us, key: 7f2746de'
+            label: Text
+            name: 7f2746de
+            widget: string
+          - hint: 'Original text: property sales, key: 38e0c701'
+            label: Text
+            name: 38e0c701
+            widget: string
+          - hint: 'Original text: Property sales, key: -2d86cdf'
+            label: Text
+            name: '-2d86cdf'
+            widget: string
+          - hint: >-
+              Original text: Maximize Value, Minimize Stress: Your Trusted
+              Partner in Property Sales Excellence, key: -d7c7179
+            label: Text
+            name: '-d7c7179'
+            widget: string
+          - hint: 'Original text: What''s my home worth, key: -101b640f'
+            label: Text
+            name: '-101b640f'
+            widget: string
+          - hint: 'Original text: Property Valuations, key: -42250e43'
+            label: Text
+            name: '-42250e43'
+            widget: string
+          - hint: >-
+              Original text: We provide accurate and professional property
+              valuations to help clients determine the value of their property.,
+              key: 6293a99f
+            label: Text
+            name: 6293a99f
+            widget: text
+          - hint: 'Original text: Real Estate Advisory, key: -db36355'
+            label: Text
+            name: '-db36355'
+            widget: string
+          - hint: >-
+              Original text: Our experienced team provides expert advice and
+              guidance on all aspects of real estate, from buying and selling to
+              investing and property development., key: 3b730c3a
+            label: Text
+            name: 3b730c3a
+            widget: text
+          - hint: >-
+              Original text: We strive to ensure all sale agreements are signed
+              quickly and the process is expedited to reduce wait times , key:
+              -2322847a
+            label: Text
+            name: '-2322847a'
+            widget: text
+          - hint: >-
+              Original text: Find out what your property is worth, key:
+              -429e7de7
+            label: Text
+            name: '-429e7de7'
+            widget: string
+          - hint: 'Original text: property appraisal, key: 4f90ee5a'
+            label: Text
+            name: 4f90ee5a
+            widget: string
+          - hint: >-
+              Original text: Manor Realty is a visionary real estate company
+              that is leading the charge in modernising the industry. As a
+              boutique firm, Manor Realty brings a fresh perspective and a
+              commitment to excellence to the real estate market. With a
+              state-of-the-art technology platform and an in-house film
+              production and marketing team, Manor Realty is poised to
+              revolutionise the traditional real estate model and propel it
+              towards a sustainable future., key: -bd576d7
+            label: Text
+            name: '-bd576d7'
+            widget: text
+          - hint: 'Original text: Join the team, key: 17b372c2'
+            label: Text
+            name: 17b372c2
+            widget: string
+          - hint: >-
+              Original text: Want to join the Manor Realty team? We'd love to
+              hear from you. Please full out the form the below and one of our
+              team will be in contact as soon as possible, key: -6dffdfe6
+            label: Text
+            name: '-6dffdfe6'
+            widget: text
+          - hint: >-
+              Original text: Take a look at the kind words our awesome clients
+              have said., key: -379eda5a
+            label: Text
+            name: '-379eda5a'
+            widget: string
+          - hint: 'Original text: Liston togia, key: 494c30a1'
+            label: Text
+            name: 494c30a1
+            widget: string
+          - hint: "Original text: Kia Ora & Talofa Lava, I'm Liston Togia and I'm more than just a real estate agent in Hamilton, Waikato – I'm your dedicated guide to the world of property. With my deep local roots, I have an unparalleled understanding of our distinctive property market.\_, key: -2e3a5c1e"
+            label: Text
+            name: '-2e3a5c1e'
+            widget: text
+          - hint: "Original text: My journey has been a diverse one, encompassing finance, international sales, and even a previous career as a tradesman. These experiences grant me a multifaceted perspective that allows me to provide comprehensive guidance. But it's not just about transactions; it's about building strong, enduring relationships.\_, key: 9d3af72"
+            label: Text
+            name: 9d3af72
+            widget: text
+          - hint: "Original text: As a proud family man I am resolutely committed to fostering client connections based on trust, transparency, and reliability. Your individual needs and dreams are always at the forefront of my service.\_, key: 683742bf"
+            label: Text
+            name: 683742bf
+            widget: text
+          - hint: >-
+              Original text: So, whether you're searching for a new home, an
+              investment property, or looking to sell, I'm here to offer a
+              personalised, tailored experience that goes beyond the
+              transaction., key: -6235323c
+            label: Text
+            name: '-6235323c'
+            widget: text
+          - hint: "Original text: Let's collaborate on your journey to turn your property dreams into a splendid reality!\_ \_, key: 5544fa4"
+            label: Text
+            name: 5544fa4
+            widget: string
+          - hint: 'Original text: Available, key: 4bb3aaa9'
+            label: Text
+            name: 4bb3aaa9
+            widget: string
+          - hint: 'Original text: Liston''s current Listings, key: 4286db8d'
+            label: Text
+            name: 4286db8d
+            widget: string
+          - hint: 'Original text: Liston''s recently sold, key: 51f711f5'
+            label: Text
+            name: 51f711f5
+            widget: string
+          - hint: >-
+              Original text: Ayalister has embarked on a transformative journey
+              in the realm of real estate, now contributing his expertise to
+              Manor Realty. His unwavering commitment to excellence positions
+              him as one of the most sought-after property advisers in the
+              Waikato region. Ayalister is reshaping the landscape of real
+              estate service, setting unprecedented standards in client
+              interactions, procedural efficiency, and team collaboration. His
+              dedication to surpassing expectations and alleviating the stresses
+              of real estate transactions is evident in every aspect of his
+              work., key: 613c4149
+            label: Text
+            name: 613c4149
+            widget: text
+          - hint: >-
+              Original text: Ayalister's distinctive character, exceptional
+              negotiation skills, and refined attitude propel his service to
+              extraordinary heights. Continuously striving to stay one step
+              ahead, he maintains an unyielding dedication to self-improvement,
+              aspiring to be better than the previous day for the sake of his
+              clients, the future, and his team. This visionary approach
+              resonates not only within Manor Realty but also echoes in the
+              broader real estate community, as Ayalister joins like-minded
+              professionals united in their drive and commitment., key:
+              -10455ebf
+            label: Text
+            name: '-10455ebf'
+            widget: text
+          - hint: >-
+              Original text: Ayalister's impact is evident in his notable
+              achievements, as reflected in the Ray White Hamilton Awards for
+              2022/2023, where he secured the impressive position of No. 8
+              Salesperson of the Year. In the preceding awards for 2021/2022, he
+              attained the distinguished No. 10 Salesperson of the Year
+              accolade. These accolades underscore Ayalister's continuous
+              pursuit of excellence and his contribution to shaping elevated
+              expectations within the real estate industry., key: -5b71803a
+            label: Text
+            name: '-5b71803a'
+            widget: text
+          - hint: 'Original text: Ayalister''s Current Listings, key: -596134aa'
+            label: Text
+            name: '-596134aa'
+            widget: string
+          - hint: 'Original text: Ayalister''s recently sold, key: -7e91d114'
+            label: Text
+            name: '-7e91d114'
+            widget: string
+          - hint: 'Original text: Ayalister is Excellent , key: 63be5674'
+            label: Text
+            name: 63be5674
+            widget: string
+          - hint: >-
+              Original text: Awesome service Ayalister sold our home he is
+              extremely committed and professional in his dealings. Ayalister
+              patience with our house sale showed true dedication to his clients
+              at all times. Ayalister rates 10/10 highly recommended Thank you
+              so much Ayalister, key: -3fcdaa2e
+            label: Text
+            name: '-3fcdaa2e'
+            widget: text
+          - hint: 'Original text: Seller, key: -6c9bc461'
+            label: Text
+            name: '-6c9bc461'
+            widget: string
+          - hint: 'Original text: Brilliant!!!, key: 39d91b0a'
+            label: Text
+            name: 39d91b0a
+            widget: string
+          - hint: >-
+              Original text: Ayalister is a very personable and professional
+              person. We liked him and his presentation from the get go. I will
+              recommend him to anybody who is thinking of selling their home. If
+              he is not your top salesperson then you must have some really
+              amazing people because he should be. Thank you for your time and
+              hard work Ayalister!!, key: 5446e2d0
+            label: Text
+            name: 5446e2d0
+            widget: text
+          - hint: 'Original text: 10/10 Above and beyond! , key: -58f429f5'
+            label: Text
+            name: '-58f429f5'
+            widget: string
+          - hint: >-
+              Original text:  Ayalister organized everything we needed done
+              including meeting tradies and also helping with the staging of the
+              property for photos. Ayalister was fantastic to deal with and his
+              communication and professional attitude were 2nd to none. Our
+              property was sold in under a week! We cannot recommend Ayalister
+              highly enough and would definitely use him again. Well done
+              Ayalister!, key: 66f1f8a7
+            label: Text
+            name: 66f1f8a7
+            widget: text
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /property-management/, key: 35567b03'
+            label: Link
+            name: 35567b03
+            widget: string
+          - hint: 'Original link: /property-sales/, key: -34f2874'
+            label: Link
+            name: '-34f2874'
+            widget: string
+          - hint: 'Original link: /about/, key: 61642f31'
+            label: Link
+            name: 61642f31
+            widget: string
+          - hint: 'Original link: /contact/, key: 16bdc13e'
+            label: Link
+            name: 16bdc13e
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /on-the-market/, key: -11f49ee8'
+            label: Link
+            name: '-11f49ee8'
+            widget: string
+          - hint: 'Original link: /property-rentals/, key: 3c6bae9'
+            label: Link
+            name: 3c6bae9
+            widget: string
+          - hint: 'Original link: /services/, key: -32173fbe'
+            label: Link
+            name: '-32173fbe'
+            widget: string
+          - hint: 'Original link: /tenants/, key: -15522a8b'
+            label: Link
+            name: '-15522a8b'
+            widget: string
+          - hint: 'Original link: /make-the-move/, key: -7aef6d0e'
+            label: Link
+            name: '-7aef6d0e'
+            widget: string
+          - hint: 'Original link: /archive-team/, key: -5321728'
+            label: Link
+            name: '-5321728'
+            widget: string
+          - hint: >-
+              Original link:
+              https://client.getpalace.com/Login.aspx?ReturnUrl=%2f, key:
+              -5843e773
+            label: Link
+            name: '-5843e773'
+            widget: string
+          - hint: 'Original link: /property-appraisal/, key: -471fb3ad'
+            label: Link
+            name: '-471fb3ad'
+            widget: string
+          - hint: 'Original link: /selling-tips/, key: -6c0be095'
+            label: Link
+            name: '-6c0be095'
+            widget: string
+          - hint: 'Original link: /recently-sold-properties/, key: 93e1699'
+            label: Link
+            name: '93e1699'
+            widget: string
+          - hint: 'Original link: /maintenance-request/, key: 7951c7a9'
+            label: Link
+            name: 7951c7a9
+            widget: string
+          - hint: 'Original link: /recently-leased-properties/, key: 5497488f'
+            label: Link
+            name: 5497488f
+            widget: string
+          - hint: >-
+              Original link:
+              https://portal.getpalace.com//Account/Login?id=d6a9b666-73b5-40d6-b8de-7e285b7048f7,
+              key: -215a143f
+            label: Link
+            name: '-215a143f'
+            widget: string
+          - hint: 'Original link: /testimonials/, key: -1b5f74d4'
+            label: Link
+            name: '-1b5f74d4'
+            widget: string
+          - hint: 'Original link: /join-the-team/, key: 17a65a22'
+            label: Link
+            name: 17a65a22
+            widget: string
+          - hint: 'Original link: mailto:info@manorrealty.co.nz, key: -7239164a'
+            label: Link
+            name: '-7239164a'
+            widget: string
+          - hint: 'Original link: tel:073902527, key: 51a7a8cc'
+            label: Link
+            name: 51a7a8cc
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.google.com/maps/place/223+Victoria+Street,+Hamilton+Central,+Hamilton+3204/@-37.788831,175.2820273,17z/data=!3m1!4b1!4m5!3m4!1s0x6d6d18ba9dd8c653:0x5a575184c5279917!8m2!3d-37.788831!4d175.284216,
+              key: 5dd9eecd
+            label: Link
+            name: 5dd9eecd
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.facebook.com/profile.php?id=100086214267270, key:
+              74aae16a
+            label: Link
+            name: 74aae16a
+            widget: string
+          - hint: >-
+              Original link: https://www.instagram.com/manorrealtygroup/, key:
+              -78fda6a0
+            label: Link
+            name: '-78fda6a0'
+            widget: string
+          - hint: 'Original link: /privacy-policy/, key: -2f934417'
+            label: Link
+            name: '-2f934417'
+            widget: string
+          - hint: 'Original link: tel:073902575, key: 51a7a965'
+            label: Link
+            name: 51a7a965
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:info@manorrealty.co.nz?subject=Manor%20Realty%20Enquiry,
+              key: -3220e69d
+            label: Link
+            name: '-3220e69d'
+            widget: string
+          - hint: 'Original link: /harman-profile/, key: 33711fc3'
+            label: Link
+            name: 33711fc3
+            widget: string
+          - hint: 'Original link: tel:+64225024954, key: -295221ef'
+            label: Link
+            name: '-295221ef'
+            widget: string
+          - hint: 'Original link: mailto:harman@manorrealty.co.nz, key: -49125397'
+            label: Link
+            name: '-49125397'
+            widget: string
+          - hint: >-
+              Original link: https://www.facebook.com/harmankalotiamanorrealty,
+              key: -16d36302
+            label: Link
+            name: '-16d36302'
+            widget: string
+          - hint: 'Original link: tel:+64272716297, key: 4b45b077'
+            label: Link
+            name: 4b45b077
+            widget: string
+          - hint: 'Original link: mailto:kamal@manorrealty.co.nz, key: 6b1e6d3a'
+            label: Link
+            name: 6b1e6d3a
+            widget: string
+          - hint: 'Original link: /adams-profile/, key: 2078367e'
+            label: Link
+            name: 2078367e
+            widget: string
+          - hint: 'Original link: tel:+64223857715, key: 7ab3c82a'
+            label: Link
+            name: 7ab3c82a
+            widget: string
+          - hint: 'Original link: mailto:adam@manorrealty.co.nz, key: -45de75a9'
+            label: Link
+            name: '-45de75a9'
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.facebook.com/profile.php?id=100087555955031, key:
+              60f7266
+            label: Link
+            name: 60f7266
+            widget: string
+          - hint: 'Original link: /listons-profile/, key: 3f4bf8ac'
+            label: Link
+            name: 3f4bf8ac
+            widget: string
+          - hint: 'Original link: tel:+642041700930, key: -542a16bc'
+            label: Link
+            name: '-542a16bc'
+            widget: string
+          - hint: 'Original link: mailto:liston@manorrealty.co.nz, key: -7df123bb'
+            label: Link
+            name: '-7df123bb'
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.facebook.com/profile.php?id=61552729778883, key:
+              -3fddb258
+            label: Link
+            name: '-3fddb258'
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.instagram.com/listontogia_manorrealty?igsh=cTRsdXl2N3R5andz,
+              key: 5a80961a
+            label: Link
+            name: 5a80961a
+            widget: string
+          - hint: 'Original link: /ayalisters-profile/, key: 6454f065'
+            label: Link
+            name: 6454f065
+            widget: string
+          - hint: 'Original link: tel:+642102510999, key: -2ddfb8f0'
+            label: Link
+            name: '-2ddfb8f0'
+            widget: string
+          - hint: 'Original link: mailto:ayalister@manorrealty.co.nz, key: 193d8eac'
+            label: Link
+            name: 193d8eac
+            widget: string
+          - hint: >-
+              Original link: https://www.facebook.com/ayalister.dsouza, key:
+              666d3f86
+            label: Link
+            name: 666d3f86
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.instagram.com/ayalister?igsh=djY5a3lvMnhzOGM4, key:
+              -7addfa61
+            label: Link
+            name: '-7addfa61'
+            widget: string
+          - hint: 'Original link: /brookes-profile/, key: d78e4f9'
+            label: Link
+            name: d78e4f9
+            widget: string
+          - hint: 'Original link: tel:+64277009640, key: 47c64061'
+            label: Link
+            name: 47c64061
+            widget: string
+          - hint: 'Original link: mailto:brooke@manorrealty.co.nz, key: 13252b92'
+            label: Link
+            name: 13252b92
+            widget: string
+          - hint: 'Original link: /melitas-profile/, key: -1c66764f'
+            label: Link
+            name: '-1c66764f'
+            widget: string
+          - hint: 'Original link: tel:+6421609080, key: -5dcdd0ae'
+            label: Link
+            name: '-5dcdd0ae'
+            widget: string
+          - hint: 'Original link: mailto:melita@manorrealty.co.nz, key: 3191984a'
+            label: Link
+            name: 3191984a
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:harman@manorrealty.co.nz?subject=Sales%20Enquiry, key:
+              -4b24725b
+            label: Link
+            name: '-4b24725b'
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:adam@manorrealty.co.nz?subject=Property%20Enquiry%20-%20174A%20Bankwood,
+              key: -49446e12
+            label: Link
+            name: '-49446e12'
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:info@manorrealty.co.nz?subject=Joinning%20Manor%20Realty,
+              key: 430c5eb4
+            label: Link
+            name: 430c5eb4
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:harman@manorrealty.co.nz?subject=Property%20Enquiry%20-%203%2F202-204%20Old%20Farm,
+              key: 5f5a80fb
+            label: Link
+            name: 5f5a80fb
+            widget: string
+          - hint: >-
+              Original link: /1-202-204-old-farm-road-hamilton-east/, key:
+              1ddbc3d8
+            label: Link
+            name: 1ddbc3d8
+            widget: string
+          - hint: >-
+              Original link: https://apply.tpsportal.co.nz/tps8754, key:
+              7160245a
+            label: Link
+            name: 7160245a
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:adam@manorrealty.co.nz?subject=Rental%20Enquiry%20-%20139%20Mahana,
+              key: -47898e58
+            label: Link
+            name: '-47898e58'
+            widget: string
+          - hint: 'Original link: tel:021609080, key: -24a61b67'
+            label: Link
+            name: '-24a61b67'
+            widget: string
+          - hint: 'Original link: tel:0277009640, key: 339533fa'
+            label: Link
+            name: 339533fa
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.instagram.com/harman_manorrealty?igsh=Y2I3azNvMGUzaTUw,
+              key: 7efe1135
+            label: Link
+            name: 7efe1135
+            widget: string
+          - hint: >-
+              Original link: https://www.facebook.com/manorrealtygroup, key:
+              a53d8cf
+            label: Link
+            name: a53d8cf
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:harman@manorrealty.co.nz?subject=Manor%20Realty%20Enquiry,
+              key: -4eb146f0
+            label: Link
+            name: '-4eb146f0'
+            widget: string
+          - hint: 'Original link: tel:02041700930, key: 39e568cb'
+            label: Link
+            name: 39e568cb
+            widget: string
+          - hint: 'Original link: tel:02102510999, key: 602fc697'
+            label: Link
+            name: 602fc697
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i4b872228
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5cf0d74
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i26e671b0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 775c1f1b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7b625a96
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 69c3d93d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i3f2514e2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 297b186e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5aedec16
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i447af50b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i5f7f3e58
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '2704718'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1ad6a1dc
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: c8cd4d8
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i369bb9e0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 463abd28
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 28d6399b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6b885c3c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i27b2172a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i7d588600
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i144f4a3a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 12a234dd
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4ef2fb25
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i471d3981
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i3d5eacf8
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 95f13b6
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i51221d18
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: ia5b06e5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i6b9500a5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i3addb251
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i1993da03
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '71252639'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 692230eb
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 123e1efa
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7167e8ac
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-35d2134f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1b2a4b7c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1e9aea95
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6b9500a5'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3f2514e2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6cf6dfcb'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2e4a3fd7
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-43d1429c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6ba31826'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6ce8c84a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-677c736a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2ba09be0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6d4f233
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 456986a2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3453196d'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3428d2ea'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-37248876'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-435b2bf4'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3f04ee3e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2d210e6b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-40bfad89'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1ef2183
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-5dc0f1a4'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-5a1ee262'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-771279d1'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: dd8e66
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1d3562
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 63a6474e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-20a3935f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 719ff2dd
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3078f56e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4747853c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4b454457
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1a4ee46b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-22215f39'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '75682123'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 57aedae4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5f141003
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '66794522'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5a84a6a9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 188b63bb
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-75413a72'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5aa077f0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-70794ccf'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-54591a7e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7c20394b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7c3c684d'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7c2e50cc'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7c4a7fce'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 155b6b9d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4cfbbba0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '188358e7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2184e968'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3228ab66
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 67790b03
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4cf71f83'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 50802a09
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7e057ec7
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-26e671b0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3d5eacf8'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7d588600'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 16ff1919
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 62ebce0b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-310e55f6'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-518295b0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-380f76c7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7f29e1a9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6113c19b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-12c58b0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4e391bf0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7defd38'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7c86438d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-27b2172a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-525e57ce'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-53dad269'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4d239eef'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-20a96fc7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1d781c8d'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1bd15b6f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-5ba862d6'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2d5e2d27
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-53eb3904'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-e8b9e63'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 66ac0829
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-75690df0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5acc8084
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 14f7c421
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4973e0fb'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1609ebba
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1a7da6c5'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4e4991ab
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-9201285'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-24821162'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow

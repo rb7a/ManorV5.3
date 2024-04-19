@@ -1,0 +1,20 @@
+---
+title: Rentals
+permalink: '{{ page.fileSlug }}/index.html'
+layout: property-rentals.html
+slug: property-rentals
+tags: pages
+seo:
+  noindex: false
+  title: Rental Properties
+  og:title: Rental Properties
+  og:image: >-
+    https://uploads-ssl.webflow.com/634b6fdcee461173c7bb5420/6392d60e6a0f547f9e137bd3_Add%20a%20heading%20(1).jpg
+  twitter:title: Rental Properties
+  additional_tags: >-
+    <meta
+    content="https://uploads-ssl.webflow.com/634b6fdcee461173c7bb5420/6392d60e6a0f547f9e137bd3_Add%20a%20heading%20(1).jpg"
+    property="twitter:image">
+---
+
+
