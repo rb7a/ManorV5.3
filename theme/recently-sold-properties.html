@@ -279,10 +279,10 @@
             </div>
             <div class="w-layout-grid grid-6">
               {% for property in rexSold %}
-              {% if property[1] < 6 %}
+              {% if property[2] < 6 %}
               <div data-w-id="664355b3-cfbf-a0e4-a5ee-1b1350f7fbea" class="outline-card">
               {% endif %}
-              {% if property[1] >= 6 %}
+              {% if property[2] >= 6 %}
               <div data-w-id="664355b3-cfbf-a0e4-a5ee-1b1350f7fbea" class="outline-card toggle-property">
               {% endif %}
                 <a href="/sold-properties/property{{ property[0].result.property.adr_unit_number }}/{{ property[0].result.property.adr_street_number }}-{{ property[0].result.property.adr_street_name }}/" class="large-journal-card w-inline-block">

@@ -96,10 +96,32 @@ async function getPropertyData(){
             let fulllisting = await response4;
             allData.push([fulllisting, i])
     }
-    console.log("rex sold: ",allData[0][0])
-    // console.log("rex sold: ",allData[1][1])
+    console.log("rex sold: ",allData)
+    console.log("rex sold0: ",allData[0][0].result)
+    let Order = [];
+    for(let i = 0; i < allData.length; i++){
+        // console.log("rex sold "+ i +": ",allData[i][0].result.system_modtime, allData[i][0].result.property.system_search_key)
+        Order.push([allData[i][0].result.system_modtime, i, allData[i][0].result.property.system_search_key]);
+    }
+    // console.log("Order (pre-sort):", Order)
+    Order.sort(function(a,b){if (a[0] < b[0]) return 1; if (a[0] > b[0]) return -1; return 0;})
+    // console.log("Order (sorted): ", Order)
+    let allDataSorted = [];
+    for(let i = 0; i < allData.length; i++){
+        allData[Order[i][1]].push(i);
+        // console.log("data update"+ i+":", allData[Order[i][1]] );
+     allDataSorted.push(allData[Order[i][1]])   
+    }
+    console.log("allDataSorted: ", allDataSorted)
 
-    return allData;
+    // console.log("rex sold0: ",allData[0][0].result.system_modtime, allData[0][0].result.property.system_search_key)
+    // console.log("rex sold1: ",allData[1][0].result.system_modtime, allData[1][0].result.property.system_search_key)
+    // console.log("rex sold2: ",allData[2][0].result.system_modtime, allData[2][0].result.property.system_search_key)
+    // console.log("rex sold3: ",allData[3][0].result.system_modtime, allData[3][0].result.property.system_search_key)
+    // console.log("rex sold4: ",allData[4][0].result.system_modtime, allData[4][0].result.property.system_search_key)
+    // console.log("rex sold3: ",allData[1][1])
+
+    return allDataSorted;
     // return allData;
 }
 
