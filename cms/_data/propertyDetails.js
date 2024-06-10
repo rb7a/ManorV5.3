@@ -149,8 +149,9 @@ async function getPropertyData(){
     // console.log("OUTPUT:", allData[2][2])
     // console.log("OUTPUT:", allData[3][2])
     // console.log("tpdata",allData[0][2])
-    // console.log("Palace: ", allData.length)
-    // console.log("Palace2: ", allData)
+  
+    console.log("Palace2: ", allData)
+      console.log("Palace: ", allData.length)
     // console.log(allData[0][0].PropertyAddress1)
     // console.log("rent test:", allData[0][0].PropertyRentAmount," period test:", allData[0][0].PropertyRentalPeriod,"beds test:", allData[0][0].PropertyFeatures.PropertyBedroomsNo,"bath test:", allData[0][0].PropertyFeatures.PropertyBathroomsNo,"car test:", allData[0][0].PropertyFeatures.PropertyCarsNo )
     // console.log("image", allData[0][1][0])

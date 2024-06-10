@@ -59,7 +59,7 @@ async function getPropertyData(){
     })
     const datasold = await responsesold;
 
-    console.log(datasold.result.rows.related)
+    // console.log(datasold.result.rows.related)
     // related.listing_images
    
     //okay now I need the await all fetch call or whatever
@@ -96,8 +96,8 @@ async function getPropertyData(){
             let fulllisting = await response4;
             allData.push([fulllisting, i])
     }
-    console.log("rex sold: ",allData)
-    console.log("rex sold0: ",allData[0][0].result)
+    // console.log("rex sold: ",allData)
+    // console.log("rex sold0: ",allData[0][0].result)
     let Order = [];
     for(let i = 0; i < allData.length; i++){
         // console.log("rex sold "+ i +": ",allData[i][0].result.system_modtime, allData[i][0].result.property.system_search_key)
@@ -112,14 +112,9 @@ async function getPropertyData(){
         // console.log("data update"+ i+":", allData[Order[i][1]] );
      allDataSorted.push(allData[Order[i][1]])   
     }
-    console.log("allDataSorted: ", allDataSorted)
+    // console.log("allDataSorted: ", allDataSorted)
 
-    // console.log("rex sold0: ",allData[0][0].result.system_modtime, allData[0][0].result.property.system_search_key)
-    // console.log("rex sold1: ",allData[1][0].result.system_modtime, allData[1][0].result.property.system_search_key)
-    // console.log("rex sold2: ",allData[2][0].result.system_modtime, allData[2][0].result.property.system_search_key)
-    // console.log("rex sold3: ",allData[3][0].result.system_modtime, allData[3][0].result.property.system_search_key)
-    // console.log("rex sold4: ",allData[4][0].result.system_modtime, allData[4][0].result.property.system_search_key)
-    // console.log("rex sold3: ",allData[1][1])
+
 
     return allDataSorted;
     // return allData;
