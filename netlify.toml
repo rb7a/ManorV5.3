@@ -9,5 +9,5 @@ functions = "functions"
   status = 200
   force = true
 
-[functions."scheduled-build]
+[functions."scheduled-build"]
   schedule = "@daily"
