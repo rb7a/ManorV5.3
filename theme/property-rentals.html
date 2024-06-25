@@ -275,10 +275,14 @@
               <div class="flex-horizontal left">
                 <div class="heading-top-line _140px mg-bottom-40px small black"></div>
               </div>
-              <h1 class="display-1 color-neutral-100 mg-bottom-24px small black large">{{ texts.73001556 }}</h1>
+              <h1 class="display-1 color-neutral-100 mg-bottom-24px small black large">
+                Rental listings coming soon...
+                <!-- {{ texts.73001556 }} -->
+              </h1>
             </div>
             <div class="w-layout-grid grid-6">
-              {% for property in propertyDetails %}
+              <p></p>
+              <!-- {% for property in propertyDetails %}
               {% if property[4] <= 6 %}
               <div data-w-id="996f8cd0-6c3a-196c-6559-8ffb2d5b9f0e" class="outline-card">
               {% endif %}
@@ -315,7 +319,6 @@
                       </div>
                       <div class="div-block-242">
                         <div class="price-txt">${{property[0].PropertyRentAmount}} Per {{property[0].PropertyRentalPeriod}}</div>
-                        <!-- <div class="price-txt pw">{{ texts.a07 }}</div> -->
                       </div>
                     </div>
                   </div>
@@ -337,7 +340,7 @@
                 </div>
               </div
             </a>
-            {% endif %}
+            {% endif %} -->
           </div>
         </div>
       </div>
