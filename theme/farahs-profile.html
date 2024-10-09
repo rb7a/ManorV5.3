@@ -421,7 +421,7 @@
                     </div>
                   </div>
                   <div class="margin-bottom margin-small">
-                    <h2 class="left-heading">FARAH'S LISTINGS</h2>
+                    <h2 class="left-heading">FARAH'S CURRENT LISTINGS</h2>
                   </div>
                 </div>
                 <a href="/on-the-market" class="outline-button listing w-inline-block">
@@ -438,8 +438,10 @@
                 </a>
               </div>
               <div class="w-layout-grid grid-6">
-                {%- assign sortedProperties = testRex | slice: -3,3 -%}
-                {% for property in sortedProperties %}
+                  {% assign counter = 0 %}
+                {% for property in testRex %}
+                  {% if counter < 3 and property[0].result.listing_agent_1.name == "Farah Baigent" %}
+                    {% assign counter = counter | plus:1 %}
                 <div data-w-id="4124147d-9d8e-e60a-6986-a828bf9946c8" class="outline-card">
                   <a href="/properties/property{{ property[0].result.property.adr_unit_number }}/{{ property[0].result.property.adr_street_number }}-{{ property[0].result.property.adr_street_name }}/" class="large-journal-card w-inline-block">
                     <div class="large-journal-image">
@@ -482,6 +484,7 @@
                   <div class="card-right-line"></div>
                   <div class="card-top-line"></div>
                 </div>
+                {% endif %}
                 {% endfor %}
               </div>
             </div>

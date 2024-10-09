@@ -319,8 +319,10 @@
             </div>
             
             <div class="w-layout-grid grid-6">
-              {%- assign sortedProperties = propertyDetails | slice: -3,3 -%}
-              {% for property in sortedProperties %}
+                {% assign counter = 0 %}
+              {% for property in propertyDetails %}
+                {% if counter < 3 and property[0].PropertyAgent.PropertyAgentFullName == "Melita Bargh" %}
+                  {% assign counter = counter | plus:1 %}
               <div data-w-id="7678bd36-bc7e-51b2-7f8e-6f3336cca159" class="outline-card">
                 <a href="/properties/rental{{property[0].PropertyUnit}}-{{property[0].PropertyAddress1}}-{{property[0].PropertyAddress2}}/" class="large-journal-card w-inline-block">
                   <div class="large-journal-image">
@@ -359,6 +361,7 @@
                 <div class="card-right-line"></div>
                 <div class="card-top-line"></div>
               </div>
+              {% endif %}
               {% endfor %}
             </div>
           </div>

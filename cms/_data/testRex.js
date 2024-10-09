@@ -191,8 +191,11 @@ async function getPropertyData(){
                 allData.push([propertyData, imageData, tpData, i, x])
             }
     }
-
-
+    console.log("RexDataLength:",allData.length)
+    for(let i = 0; i < allData.length; i++){
+        console.log("RexData"+i,", Agent:" + allData[i][0].result.listing_agent_1.name, "Property: "+allData[i][0].result.property.system_search_key)
+    }
+    
     // console.log("show here pt.2: ", allData[0][1].result)
     // console.log("RexData1:",allData)
     // console.log("RexData1:",allData[0][0].result.related.listing_subcategories)
