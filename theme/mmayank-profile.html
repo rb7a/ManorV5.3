@@ -395,6 +395,14 @@
         </div>
       </div>
     </div>
+     <!-- check if Liston has any listings -->
+     {% assign agentproperties = 0 %}
+     {% for property in testRex %}
+       {% if property[0].result.listing_agent_1.name == "Mmayank Soni" %}
+         {% assign agentproperties = agentproperties | plus:1 %}
+       {% endif %}
+     {% endfor %}
+     {% if agentproperties > 0 %}
     <div id="adam-listings" class="listings-section page adam">
       <div class="container w-container">
         <div class="rental-wrap page">
@@ -405,32 +413,33 @@
                   <div class="margin-bottom margin-xsmall">
                     <div class="subtitle-and-line-container">
                       <div class="subtitle-line"></div>
-                      <div class="subtitle">{{ texts.503e966f }}</div>
+                      <div class="subtitle">{{ texts.4bb3aaa9 }}</div>
                     </div>
                   </div>
                   <div class="margin-bottom margin-small">
-                    <h2 class="left-heading">Mmayank's Listings</h2>
+                    <h2 class="left-heading">Mmayanks Current Listings</h2>
                   </div>
                 </div>
                 <a href="/on-the-market" class="outline-button listing w-inline-block">
-                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cb-95171b36" class="button-text-3">{{ texts.-7d7db477 }}</div>
-                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cd-95171b36" class="button-hover-outline left">
+                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cb-99fe6089" class="button-text-3">{{ texts.-7d7db477 }}</div>
+                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cd-99fe6089" class="button-hover-outline left">
                     <div class="solid-button-outline"></div>
                   </div>
-                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cf-95171b36" class="button-hover-outline right">
+                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1cf-99fe6089" class="button-hover-outline right">
                     <div class="solid-button-outline right"></div>
                   </div>
-                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1d1-95171b36" class="button-hover-outline middle">
+                  <div id="w-node-_72900620-07c1-7e50-5df3-2938a4ebe1d1-99fe6089" class="button-hover-outline middle">
                     <div class="solid-button-outline middle"></div>
                   </div>
                 </a>
               </div>
+              
               <div class="w-layout-grid grid-6">
                   {% assign counter = 0 %}
                 {% for property in testRex %}
                   {% if counter < 3 and property[0].result.listing_agent_1.name == "Mmayank Soni" %}
                     {% assign counter = counter | plus:1 %}
-                <div data-w-id="4124147d-9d8e-e60a-6986-a828bf9946c8" class="outline-card">
+                <div data-w-id="4124147d-9d8e-e60a-6986-a828bf99470a" class="outline-card">
                   <a href="/properties/property{{ property[0].result.property.adr_unit_number }}/{{ property[0].result.property.adr_street_number }}-{{ property[0].result.property.adr_street_name }}/" class="large-journal-card w-inline-block">
                     <div class="large-journal-image">
                       <div class="journal-category">
@@ -480,6 +489,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <div id="adam-listings" class="listings-section page adam">
       <div class="container w-container">
         <div class="rental-wrap page">

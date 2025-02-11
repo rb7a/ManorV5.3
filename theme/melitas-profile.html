@@ -287,6 +287,14 @@
       </div>
     </div>
   </div>
+   <!-- check if melita has any listings -->
+   {% assign agentproperties = 0 %}
+   {% for property in propertyDetails %}
+     {% if property[0].PropertyAgent.PropertyAgentFullName == "Melita Bargh" %}
+       {% assign agentproperties = agentproperties | plus:1 %}
+     {% endif %}
+   {% endfor %}
+   {% if agentproperties > 0 %}
   <div id="adam-listings" class="listings-section page adam">
     <div class="container w-container">
       <div class="rental-wrap page">
@@ -369,6 +377,7 @@
       </div>
     </div>
   </div>
+  {% endif %}
   <!-- <div id="adam-listings" class="listings-section page adam">
     <div class="container w-container">
       <div class="rental-wrap page">

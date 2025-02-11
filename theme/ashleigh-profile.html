@@ -391,7 +391,15 @@
         </div>
       </div>
     </div>
-    <!-- <div id="adam-listings" class="listings-section page adam">
+     <!-- check if ashleigh has any listings -->
+    {% assign agentproperties = 0 %}
+    {% for property in testRex %}
+      {% if property[0].result.listing_agent_1.name == "Ashleigh Davies" %}
+        {% assign agentproperties = counter | plus:1 %}
+      {% endif %}
+    {% endfor %}
+    {% if agentproperties > 0 %}
+    <div id="adam-listings" class="listings-section page adam">
       <div class="container w-container">
         <div class="rental-wrap page">
           <div class="current-listings">
@@ -405,7 +413,7 @@
                     </div>
                   </div>
                   <div class="margin-bottom margin-small">
-                    <h2 class="left-heading">RECENT LISTINGS</h2>
+                    <h2 class="left-heading">ASHLEIGHS LISTINGS</h2>
                   </div>
                 </div>
                 <a href="/on-the-market" class="outline-button listing w-inline-block">
@@ -422,8 +430,10 @@
                 </a>
               </div>
               <div class="w-layout-grid grid-6">
-                {%- assign sortedProperties = testRex | slice: -3,3 -%}
-                {% for property in sortedProperties %}
+                {% assign counter = 0 %}
+                {% for property in testRex %}
+                  {% if counter < 3 and property[0].result.listing_agent_1.name == "Ashleigh Davies" %}
+                    {% assign counter = counter | plus:1 %}
                 <div data-w-id="4124147d-9d8e-e60a-6986-a828bf9946c8" class="outline-card">
                   <a href="/properties/property{{ property[0].result.property.adr_unit_number }}/{{ property[0].result.property.adr_street_number }}-{{ property[0].result.property.adr_street_name }}/" class="large-journal-card w-inline-block">
                     <div class="large-journal-image">
@@ -466,13 +476,15 @@
                   <div class="card-right-line"></div>
                   <div class="card-top-line"></div>
                 </div>
+                {% endif %}
                 {% endfor %}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
+    {% endif %}
     <!-- <div id="adam-listings" class="listings-section page adam">
       <div class="container w-container">
         <div class="rental-wrap page">
