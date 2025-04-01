@@ -367,6 +367,14 @@ permalink: "properties/rental{{propertyDetails[pagination.pageNumber][0].Propert
                   <a href="/melitas-profile">
                     <div class="circle-wrap"><img class="agent-img" src="https://www.manorrealty.co.nz/assets/images/399939454_889383232790400_4076542376163265220_n.jpg" alt="{{ images.-12c58b0.alt | trim | escape }}" data-sizes="[{&quot;max&quot;:10000,&quot;size&quot;:&quot;131.09375px&quot;}]" sizes="131.09375px" loading="lazy"></div>
                   </a>
+                {% elsif propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName == "Ashleigh Davies" %} 
+                  <a href="/ashleigh-profile">
+                    <div class="circle-wrap"><img class="agent-img" src="https://www.manorrealty.co.nz/assets/images/ashleigh-profile.jpg" alt="{{ images.-12c58b0.alt | trim | escape }}" data-sizes="[{&quot;max&quot;:10000,&quot;size&quot;:&quot;131.09375px&quot;}]" sizes="131.09375px" loading="lazy"></div>
+                  </a>
+                {% elsif propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName == "Denisa Cuttance" %} 
+                  <a href="/denisa-profile">
+                    <div class="circle-wrap"><img class="agent-img" src="https://www.manorrealty.co.nz/assets/images/denisa-profile.jpg" alt="{{ images.-12c58b0.alt | trim | escape }}" data-sizes="[{&quot;max&quot;:10000,&quot;size&quot;:&quot;131.09375px&quot;}]" sizes="131.09375px" loading="lazy"></div>
+                  </a>
                 {% else %}
                   <a href="/adams-profile">
                     <div class="circle-wrap"><img class="agent-img" src="https://lh3.googleusercontent.com/pw/ABLVV86LGJK2qyAN6nRlRR-a1dt4Fg69P2Z07nFZW5QNTZOtuZvVVOuCYhkRm52dUE8XzNwBgj6YOtfib8f_CDjqVwzgpvMRw8-RYCyPRE4AXhbzag2YrzoRvVIiwDMUoRbPpV3mAAKTCbyEvr-pldHfVa-P=w879-h879-s-no?authuser=0" alt="{{ images.-12c58b0.alt | trim | escape }}" data-sizes="[{&quot;max&quot;:10000,&quot;size&quot;:&quot;131.09375px&quot;}]" sizes="131.09375px" loading="lazy"></div>
@@ -416,6 +424,38 @@ permalink: "properties/rental{{propertyDetails[pagination.pageNumber][0].Propert
                     </a>
                     <a href="mailto:melita@manorrealty.co.nz" class="link-block-5 w-inline-block">
                       <div class="agent-number">melita@manorrealty.co.nz</div>
+                    </a>
+                    <a class="link-block-5 w-inline-block">
+                      <div class="agent-number">{{ texts.5e949c00 }}</div>
+                    </a>
+                  </div>
+                {% elsif propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName == "Ashleigh Davies" %} 
+                  <div class="agent-info-wrap">
+                    <a class="link-no-style" href="/ashleigh-profile">  
+                    <div class="agent-name">{{propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName}}</div>
+                    </a>
+                    <div class="subtitle-line"></div>
+                    <a href="tel:+64226190527" class="link-block-5 w-inline-block">
+                      <div class="agent-number">+64 22 619 0527</div>
+                    </a>
+                    <a href="mailto:ashleigh@manorrealty.co.nz" class="link-block-5 w-inline-block">
+                      <div class="agent-number">ashleigh@manorrealty.co.nz</div>
+                    </a>
+                    <a class="link-block-5 w-inline-block">
+                      <div class="agent-number">{{ texts.5e949c00 }}</div>
+                    </a>
+                  </div>
+                {% elsif propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName == "Denisa Cuttance" %} 
+                  <div class="agent-info-wrap">
+                    <a class="link-no-style" href="/denisa-profile">  
+                    <div class="agent-name">{{propertyDetails[pagination.pageNumber][0].PropertyAgent.PropertyAgentFullName}}</div>
+                    </a>
+                    <div class="subtitle-line"></div>
+                    <a href="tel:+64223857715" class="link-block-5 w-inline-block">
+                      <div class="agent-number">+64 22 385 7715</div>
+                    </a>
+                    <a href="mailto:denisa@manorrealty.co.nz" class="link-block-5 w-inline-block">
+                      <div class="agent-number">denisa@manorrealty.co.nz</div>
                     </a>
                     <a class="link-block-5 w-inline-block">
                       <div class="agent-number">{{ texts.5e949c00 }}</div>
